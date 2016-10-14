@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <title>Router-Step-1</title>
+    <!-- <script src="../../lib/script/module/router.js"></script> -->
+    <script src="../../lib/script/module/sparrow.js"></script>
+    <script src="../../lib/script/base/zepto/zepto.min.js"></script>
+</head>
+
+<body>
+    <h1>Router</h1>
+    <ul id="list">
+        <li><a href="javascript:;">about</a></li>
+        <li><a href="javascript:;">article</a></li>
+        <li><a href="javascript:;">products</a></li>
+        <li><a href="javascript:;">move</a></li>
+    </ul>
+    <br>
+    <br>
+    <div id="main"></div>
+    <script id="tpl" type="text/template">
+        <h1><% this.content %></h1>
+    </script>
+    <script>
+    // configuration
+    // Sparrow.config({
+    // mode: 'history'
+    // });
+
+    // returning the user to the initial state
+    // Sparrow.navigate();
+
+    // adding routes
+    Sparrow
+        .add(/about/, function() {
+            console.log('about');
+            var html = document.querySelector('#tpl').innerHTML;
+            var tpl = Sparrow.$.template(html, {
+                content: 'about'
+            });
+            document.querySelector('#main').innerHTML = tpl;
+        })
+        // .add(/products\/(.*)\/edit\/(.*)/, function() {
+        // console.log('products', arguments);
+        // })
+        .add(/article/, function() {
+            console.log('article');
+            var html = document.querySelector('#tpl').innerHTML;
+            var tpl = Sparrow.$.template(html, {
+                content: 'article'
+            });
+            document.querySelector('#main').innerHTML = tpl;
+        })
+        .add(/products/, function() {
+            console.log('products');
+        })
+        .add(/move/, function() {
+            Sparrow.remove(/article/);
+        }).listen();
+    // .check('/products/12/edit/22').listen();
+
+    // forwarding
+    // Router.navigate('/spa');
+
+    $(function() {
+        var btns = $('#list > li > a');
+        btns.each(function() {
+            var rule = $(this).html();
+            $(this).on('click', function() {
+                Sparrow.navigate('/' + rule);
+            });
+        });
+    });
+    </script>
+</body>
+
+</html>

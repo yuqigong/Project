@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <title>chrome-console</title>
+    <!-- Base style -->
+    <link rel="stylesheet" href="../lib/css/base/base.css" />
+    <link rel="stylesheet" href="../lib/css/base/main.css" />
+</head>
+
+<body>
+    <ul>
+        <li>console.log：普通信息</li>
+        <li>console.info：提示类信息</li>
+        <li>console.error：错误信息</li>
+        <li>console.warn：警示信息</li>
+    </ul>
+    <script type="text/javascript">
+    console.log('这个是普通信息。');
+    console.info('这个是温馨提示~');
+    console.error('这个是错误信息！');
+    console.warn('这个是警告信息！！');
+    </script>
+    <ul>
+        <li>console.group：分组开始</li>
+        <li>console.groupEnd：分组结束</li>
+    </ul>
+    <script type="text/javascript">
+    console.group('app.foo');
+    console.log('app.foo 模块信息，blah blah blah');
+    console.log('app.foo 模块信息，blah blah blah');
+    console.log('app.foo 模块信息，blah blah blah');
+    console.groupEnd();
+    console.group('app.bar');
+    console.log('app.bar 模块信息，blah blah blah');
+    console.log('app.bar 模块信息，blah blah blah');
+    console.log('app.bar 模块信息，blah blah blah');
+    console.groupEnd();
+    </script>
+    <ul>
+        <li>console.table：以表格的形式将数据输出</li>
+    </ul>
+    <script type="text/javascript">
+    var data = [{
+        '品名': '杜雷斯',
+        '数量': 4
+    }, {
+        '品名': '冈本',
+        '数量': 3
+    }];
+    console.table(data);
+    </script>
+    <ul>
+        <li>console.assert：断言</li>
+    </ul>
+    <script type="text/javascript">
+    var isDebug = false;
+    console.assert(isDebug, '开发中的log信息。。。');
+    </script>
+    <ul>
+        <li>console.count：计数</li>
+    </ul>
+    <script type="text/javascript">
+    var count = 0,
+        foo = function() {
+            if (count > 10) {
+                clearInterval(foo);
+            }
+            count += 1;
+            console.count('foo 被执行的次数：');
+        };
+    setInterval(foo, 1000);
+    </script>
+</body>
+
+</html>

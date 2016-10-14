@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'kunlunxiyuan';
+    src: url('../../font/kunlunxiyuan.ttf');
+    src: url('../../font/kunlunxiyuan.eot?#iefix') format('embedded-opentype'),
+         url('../../font/kunlunxiyuan.woff2') format('woff2'),
+         url('../../font/kunlunxiyuan.woff') format('woff'),
+         url('../../font/kunlunxiyuan.ttf') format('truetype'),
+         url('../../font/kunlunxiyuan.svg#kunlunxiyuan') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+.main > .type-wrap {
+	font-family: "kunlunxiyuan";
+	font: 14px/1.5 Arial,Serif;
+}

@@ -1,0 +1,7 @@
+.mod-number{
+    width: 200px;
+    margin: 100px auto;
+}
+.mod-number input{
+    text-align: center;
+}

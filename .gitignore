@@ -1,0 +1,17 @@
+#lib/script/base/
+temp/
+blog/
+
+####################
+# fixed file
+####################
+*.zip
+*.doc
+*.docx
+*.exe
+*.rar
+*.psd
+*.PSD
+.DS_Store
+.idea/
+node_modules/

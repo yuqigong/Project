@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" name="" id="input-key">
+    <p class="p-show" id="j_show"></p>
+    <script>
+    /**
+     * [$ 根据ID获取dom]
+     * @param  {[type]} id [description]
+     * @return {[type]}    [description]
+     */
+    function $(id) {
+        return document.getElementById(id) ? document.getElementById(id) : id;
+    }
+
+    var keyMap = {
+        keystring: '',//记录按键的字符串
+        getCurrKey: function() {
+            return this.currKey;
+        },
+        currKey: 0,
+        capsLock: 0,
+        isEventOver: false,
+        /**
+         * [keydown 主要是实现了对功能按键的获取]
+         * @param  {[type]} e [description]
+         * @return {[type]}   [description]
+         */
+        keydown: function(e) {
+
+        },
+        /**
+         * [keypress 实现对字符码的截获，由于功能按键要用keydown获取，所以在keypress中屏蔽了这些功能按键]
+         * @param  {[type]} e [description]
+         * @return {[type]}   [description]
+         */
+        keypress: function(e) {
+
+        },
+        /**
+         * [keyup 展示截获的字符串]
+         * @param  {[type]} e [description]
+         * @return {[type]}   [description]
+         */
+        keyup: function(e) {
+
+        },
+        showKeyCode: function(e) {
+            console.log(keyMap.currKey);
+            var e = e || event;
+            keyMap.currKey = e.keyCode || e.which || e.charCode;
+
+            keyName = String.fromCharCode(keyMap.currKey);
+            console.log("按键码: " + keyMap.currKey + " 字符: " + keyName);
+        }
+    };
+    document.onkeyup = keyMap.showKeyCode;
+    </script>
+</body>
+
+</html>

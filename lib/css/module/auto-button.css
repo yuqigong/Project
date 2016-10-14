@@ -1,0 +1,56 @@
+.paper {
+    text-align: center;
+}
+.paper h2 {
+    margin-bottom: 10px;
+}
+/*btn*/
+ .btn {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+.btn .content {
+    font-size: 14px;
+    background: #FFF;
+    border-style: solid;
+    border-color: #A93298;
+    border-width: 0 1px;
+    padding: 5px;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+.btn .bdt, .btn .bdb {
+    display: block;
+    background: transparent;
+    font-size: 1px;
+}
+.i1, .i2, .i3, .i4 {
+    font-size: 1px;
+    display: block;
+    overflow: hidden;
+}
+.i1, .i2, .i3 {
+    height: 1px;
+}
+.i2, .i3, .i4 {
+    background: #FFF;
+    border-left: 1px solid #A93298;
+    border-right: 1px solid #A93298;
+}
+.i1 {
+    margin: 0 5px;
+    background: #A93298;
+}
+.i2 {
+    margin: 0 3px;
+    border-width: 0 2px;
+}
+.i3 {
+    margin: 0 2px;
+}
+.i4 {
+    height: 2px;
+    margin: 0 1px;
+}

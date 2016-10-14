@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>js-countdown</title>
+    <script src="script/zepto.js"></script>
+    <link rel="stylesheet" href="css/base.css">
+    <style>
+    p {
+        line-height: 3;
+        text-align: center;
+    }
+    p a {
+        text-decoration: none;
+        color: #333;
+        border: 1px solid #CCC;
+        padding: 3px 10px;
+    }
+    </style>
+</head>
+
+<body id="j_t">
+    <p>
+        <a href="javascript:;">免费获取</a>
+    </p>
+    <p>
+        <a href="javascript:;">免费获取</a>
+    </p>
+    <script>
+    $(function() {
+        $('#j_t').on('click', 'a', function() {
+            var self = $(this);
+            countdown(10, self);
+        });
+
+        var countdown = function() {
+            var a = arguments,
+                s = a[0],
+                o = a[1];
+
+            if (!s && !o) {
+                return;
+            }
+            if (o.attr('data-time')) {
+                return;
+            }
+            o.attr('data-time', 'true');
+
+            var func = function() {
+                var t = setTimeout(function() {
+                    if (s === 0) {
+                        clearTimeout(t);
+                        o.text('重新获取');
+                        o.removeAttr('data-time');
+                    } else {
+                        (function() {
+                            s -= 1;
+                            o.text(s + '秒');
+                            func();
+                        })();
+                    }
+                }, 1000);
+            }
+
+            if (o.attr('data-time') === 'true') {
+                func();
+                o.attr('data-time', 'false');
+            }
+        }
+    });
+    </script>
+</body>
+<!-- <input type="button" id="btn" value="免费获取验证码" /> -->
+<script type="text/javascript">
+// var wait=60;
+// function time(o) {
+//         if (wait == 0) {
+//             o.removeAttribute("disabled");
+//             o.value="免费获取验证码";
+//             wait = 60;
+//         } else {
+//             o.setAttribute("disabled", true);
+//             o.value="重新发送(" + wait + ")";
+//             wait--;
+//             setTimeout(function() {
+//                 time(o)
+//             },
+//             1000)
+//         }
+//     }
+// document.getElementById("btn").onclick=function(){time(this);}
+</script>
+</html>

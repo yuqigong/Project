@@ -1,0 +1,94 @@
+/*文字单行省略号*/
+/*文字隐藏*/
+.text-hidden {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  /* ie6,7*/
+  clip: rect(1px 1px 1px 1px);
+}
+.inline-block {
+  display: inline-block;
+  /* ie6,7*/
+  *display: inline;
+  *zoom: 1;
+}
+.clearfix {
+  zoom: 1;
+}
+.clearfix :after {
+  clear: both;
+  overflow: hidden;
+}
+.clearfix :before,
+.clearfix :after {
+  content: "";
+  display: table;
+}
+.g-slide {
+  position: relative;
+}
+.g-slide .g-slide-wrap {
+  width: 100px;
+}
+.g-slide .g-slide-arrow {
+  position: absolute;
+}
+.g-slide img {
+  width: 100%;
+  height: 100%;
+}
+.g-btn-auto {
+  zoom: 1;
+}
+.g-btn-auto :after {
+  clear: both;
+  overflow: hidden;
+}
+.g-btn-auto :before,
+.g-btn-auto :after {
+  content: "";
+  display: table;
+}
+.g-btn-auto .inline-block {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.g-btn-auto .height {
+  height: 1px;
+}
+.g-btn-auto .content {
+  font-size: 14px;
+  background: #FFF;
+  border-style: solid;
+  border-color: #a93298;
+  border-width: 0 1px;
+  padding: 5px;
+  color: #333333;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.g-btn-auto .bdtop,
+.g-btn-auto .bdbottom {
+  background: transparent;
+  font-size: 1px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.g-btn-auto .i-1 {
+  margin: 0 5px;
+  background: #a93298;
+}
+.g-btn-auto .i-2 {
+  margin: 0 3px;
+  border-width: 0 2px;
+}
+.g-btn-auto .i-3 {
+  margin: 0 2px;
+}
+.g-btn-auto .i-4 {
+  height: 2px;
+  margin: 0 1px;
+}

@@ -1,0 +1,47 @@
+<!-- 
+    -名称：ie10 placeholder
+    -时间：2013-11-8
+    -作者：yuqi 
+-->
+<!DOCTYPE html >
+<html>
+
+<head>
+    <title>Placeholder style example</title>
+    <style type="text/css">
+    input {
+        /* normal style */
+        background-color:LightGray;
+        color:Purple;
+    }
+    input.address:-ms-input-placeholder {
+        /* placeholder only style */
+        font-style:italic;
+        background-color:yellow;
+        color:Red;
+    }
+    </style>
+</head>
+
+<body>
+    <form id="test">
+        <p>
+            <label>Enter Name:
+                <input id="name" placeholder="Your Name" />
+            </label>
+        </p>
+        <p>
+            <label>Enter Street:
+                <input id="street" class="address" placeholder="Your address" />
+            </label>
+        </p>
+        <p>
+            <label>Enter a zip code:
+                <input type="num" pattern="(0-9){5}" id="zip" class="address" placeholder="5 digit zip" />
+            </label>
+        </p>
+        <input type="submit" />
+    </form>
+</body>
+
+</html>

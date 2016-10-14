@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jquery-typed</title>
+	<link href="http://fonts.useso.com/css?family=Calligraffitti" rel="stylesheet" type="text/css">
+    <style>
+    body {
+        font-family: "Consolas", "Courier New", "Courier";
+    }
+    #text .name {
+    	font: 700 30px/1 Arial,Serif;
+        font-family: Calligraffitti;
+    }
+    /* code for animated blinking cursor */
+
+    .typed-cursor {
+        opacity: 1;
+        font-weight: 100;
+        -webkit-animation: blink 1s infinite;
+        -moz-animation: blink 1s infinite;
+        -ms-animation: blink 1s infinite;
+        -o-animation: blink 1s infinite;
+        animation: blink 1s infinite;
+    }
+
+    @-keyframes blink {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes blink {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @-moz-keyframes blink {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @-ms-keyframes blink {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @-o-keyframes blink {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div class="type-wrap">
+        <span id="text"></span>
+    </div>
+    <script type="text/javascript" src="../lib/script/base/jquery/jquery.js"></script>
+    <script type="text/javascript" src="../lib/script/plugin/typed.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $('#text').typed({
+            strings: ['JavaScript 的一个问题是，^1000<br>任何变量，函数或是对象，除非是在某个函数内部定义，<br> ^1000 否则，就是全局的，意味着同一网页的别的代码可以访问并改写这个变量（ECMA 的 JavaScript 5 已经改变了这一状况 - 译者），使用匿名函数，你可以绕过这一问题。<br/><br/><br/> ^1000 <span class="name">Richie</span>'],
+            typeSpeed: 100,
+            backDelay: 500,
+            loop: false,
+            cursorChar: "_",
+            contentType: 'html', // or text
+            // defaults to false for infinite loop
+            loopCount: false
+        });
+    });
+    </script>
+</body>
+
+</html>

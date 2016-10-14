@@ -1,0 +1,50 @@
+.wrapper {
+    width: 320px;
+}
+.hear-bar{
+    position: fixed;
+    top:0;
+    left: 0;
+    background-color: #fff;
+    height: 50px;
+    width: 100%;
+}
+.view-port{
+    position: relative;
+    overflow: hidden;
+    height: auto;
+    /*overflow: auto;*/
+}
+.p {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 320px;
+    z-index: 1;
+}
+.p p{
+    height: 80px;
+    line-height: 80px;
+}
+.p span{
+    display: block;
+    height: 150px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: yellow;
+    opacity: .3;
+}
+.p1 {
+    background-color: red;
+}
+.p2 {
+    background-color: green;
+}
+.p3 {
+    background-color: blue;
+}
+.p4 {
+    background-color: black;
+}

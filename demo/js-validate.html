@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>js-validate</title>
+    <link rel="stylesheet" href="../lib/css/base/base.css">
+    <script src="../lib/script/module/validate.js"></script>
+</head>
+
+<body>
+    <div>
+        <form action="" name="frm_valid">
+            <ul>
+                <li>
+                    <span>姓名：</span>
+                    <input type="text" name="va_1" id="">
+                </li>
+                <li>
+                    <span>邮箱：</span>
+                    <input type="text" name="va_2" id="">
+                </li>
+                <li>
+                    <span>手机：</span>
+                    <input type="text" name="va_3" id="">
+                </li>
+                <li>
+                    <span>昵称：</span>
+                    <input type="text" name="va_4" id="">
+                </li>
+                <li>
+                    <span>地址：</span>
+                    <input type="text" name="va_5" id="">
+                </li>
+                <li>
+                    <span>邮编：</span>
+                    <input type="text" name="va_6" id="">
+                </li>
+            </ul>
+            <button type="submit" name="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+    var validator = new FormValidator('frm_valid', [{
+        name: 'va_1',
+        display: 'va_1 required',
+        rules: 'required'
+    }, {
+        name: 'va_2',
+        display: 'va_2 required',
+        rules: 'required'
+    }, {
+        name: 'va_3',
+        display: 'va_3 required',
+        rules: 'required'
+    }, {
+        name: 'va_4',
+        display: 'va_4 required',
+        rules: 'required'
+    }, {
+        name: 'va_5',
+        display: 'va_5 required',
+        rules: 'required'
+    }, {
+        name: 'va_6',
+        display: 'va_6 required',
+        rules: 'required|callback_check_password'
+    }]//, function(errors, event) {
+        // if (errors.length > 0) {
+        //     var errorString = '';
+
+        //     for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+        //         errorString += errors[i].message + '\n';
+        //     }
+
+        //     // el.innerHTML = errorString;
+        //     console.log(errorString);
+        // }
+    //}
+    );
+    validator.setMessage('check_password', 'Please choose a stronger password using at least 1 number.');
+    validator.registerCallback('check_password', function(value) {
+        // if (passwordIsStrong(value)) {
+        //     return true;
+        // }
+        console.log(value);
+        console.log(this);
+        if(value.length > 0){
+            return true;
+        }
+
+        return false;
+    });
+    </script>
+</body>
+
+</html>

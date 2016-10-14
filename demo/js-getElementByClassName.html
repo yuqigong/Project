@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>js-getElementByClassName</title>
+</head>
+
+<body>
+    <ul id="list">
+        <li>1</li>
+        <li>2</li>
+        <li class="item">3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+    <script>
+        function getElementByClassName(node, classname) {
+            if (node.getElementByClassName) {
+                return getElementByClassName(classname);
+            } else {
+                var result = new Array();
+                var elems = node.getElementsByTagName('*');
+                for (var i = 0; i < elems.length; i++) {
+                    if (elems[i].className.indexOf(classname) != -1) {
+                        result[result.length] = elems[i];
+                    }
+                }
+                return result;
+            }
+        }
+        var list = document.getElementById('list');
+        var items = getElementByClassName(list, 'item');
+        var ie = !-[1,];
+        if(ie){
+            alert(items.length);
+        }else{
+            console.log(items.length);
+        }
+    </script>
+</body>
+
+</html>

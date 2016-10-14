@@ -1,0 +1,27 @@
+.banner {
+    position: relative;
+}
+.banner .wrap {
+    width: 320px;
+    height: 480px;
+    overflow: hidden;
+    margin: 0 auto;
+    position: relative;
+}
+.banner .wrap img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    left:0;
+    cursor:pointer;
+    /*-webkit-transition: opacity .5s;*/
+}
+#touch {
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}

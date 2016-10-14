@@ -1,0 +1,185 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.imagesdetail {
+    width: 100%;
+    text-align: center;
+    margin: 15px auto;
+}
+
+.info {
+    position: relative;
+    width: 100%;
+    height: 12px;
+    margin-top: 8px;
+}
+
+.poicon {
+    margin-left: 5%;
+    width: 9px;
+    float: left;
+    margin-top: 2px;
+}
+
+.poi {
+    margin-left: 5px;
+    line-height: 18px;
+    font-size: 13px;
+    color: #b79995;
+    float: left;
+}
+
+.tip {
+    margin-left: 5px;
+    line-height: 18px;
+    font-size: 13px;
+    color: #ffaf00;
+    float: left;
+}
+
+.date {
+    margin-right: 5%;
+    line-height: 13px;
+    font-size: 12px;
+    color: #b79995;
+    float: right;
+}
+
+.main {
+    font-size: 15px;
+    color: #443637;
+    width: 100%;
+    border-bottom: 1px solid #efddd7;
+    text-indent: 5%;
+}
+
+.fav {
+    height: 75px;
+    border-bottom: 1px solid #efddd7;
+    padding: 0 5%;
+    position: relative;
+}
+
+.heart {
+    float: left;
+    width: 15px;
+    height: 15px;
+    padding: 20px 0;
+    position: relative;
+}
+
+.face {
+    background-color: #f9f3eb;
+    width: 30px;
+    height: 30px;
+    margin: 15px 5px;
+    float: left;
+}
+
+.facemask {
+    width: 30px;
+    height: 30px;
+    float: left;
+}
+
+.num {
+    background-color: #f9f3eb;
+    background-image: url(../img/numbg.png);
+    width: 30px;
+    height: 15px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #ffffff;
+    float: left;
+    text-align: center;
+}
+
+.user {
+    width: 100%;
+    height: 40px;
+    margin-top: 10px;
+}
+
+.userface {
+    float: left;
+    width: 40px;
+    height: 40px;
+    margin-left: 5%;
+}
+
+.name {
+    font-size: 17px;
+    color: #946e6e;
+    margin-left: 10px;
+    float: left;
+    width: 170px;
+    text-align: left
+}
+
+.age {
+    font-size: 12px;
+    line-height: 12px;
+    color: #b79995;
+    width: 170px;
+    float: left;
+    margin-left: 10px;
+    text-align: left;
+}
+
+.followbtn {
+    width: 60px;
+    height: 25px;
+    float: right;
+    margin-top: 8px;
+    margin-right: 5%;
+}
+
+.banner {
+    background-color: #2f2728;
+    opacity: 0.95;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+}
+
+.banner a:nth-child(1){
+    float: left;
+    margin-left: 20px;
+
+}
+
+.banner a:nth-child(2){
+    float: right;
+    margin: 10px 20px;
+}
+
+body {
+    background-color: #fff;
+    font-family: arial, "Hiragino Sans GB", "Microsoft Yahei", sans-serif
+}
+
+.img-round {
+    border-radius: 50%;
+}
+
+#description {
+    text-align: left;
+    text-indent: 0;
+    padding: 0 5%;
+}
+
+.fav .info {
+    font-size: 13px;
+    color: #b79995;
+    margin-top: 15px;
+}

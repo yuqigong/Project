@@ -1,0 +1,213 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>贪吃蛇</title>
+<!--css样式-->
+<style type="text/css">
+    body{font-size:24px; border:none; cursor:pointer;}
+    #SnakeArea{ width:420px; height:420px; border:#600 solid 2px; margin-top:-15px; margin-left:-10px; background:url(image/23.jpg);}
+    #Menu{background-image:url(image/40.gif); width:200px; height:410px; border:#90C solid 2px; margin-left:420px; margin-top:-410px; color:#FFF; text-align:center;}
+    a{ color:#FFF;text-decoration:none;}
+    .onMouseMove{ text-decoration:underline; font-size:28px; background-color:#90F; border:2px #30F solid;}
+    .onMouseOut{ text-decoration:none; font-size:24px; border: none;}
+</style>
+<!--下面是本人使用JavaScript来编写贪吃蛇,课外做的课堂作业,求高手点评出缺点,提出自己的看法意见-->
+<script type="text/javascript">
+var keyValue;//获取键盘键值
+var snakeId = 0;//蛇身体(控件)的id号
+var loca = 0;//蛇身(控件)交换的索引
+var speed = 500;//蛇移动的速度
+var num = 1;//玩家的积分
+    window.onload = function Lond(){//初始化蛇的位置
+        var leftPoint = 10;
+        for(var i=0;i<3;i++){//初始化蛇的长度
+            var SnakeLond = SnakeBody();
+            SnakeLond.style.position = "absolute";
+            SnakeLond.style.top = "100px";
+            SnakeLond.style.left = leftPoint+"px";
+            leftPoint += 10;
+            document.body.appendChild(SnakeLond);//把创建的蛇添加到页面上去
+        }
+        Food();//初始化事物
+    }
+    function Random(){//获取食物的随机位置
+        return Math.floor(Math.random()*(40));//生成随机数     
+    }
+    function SnakeBody(){//构造一个蛇身并设置其初始的属性值
+        var SnakeLond = document.createElement("input");
+        SnakeLond.setAttribute("type","button");//初始类型
+        SnakeLond.style.width = "20px";
+        SnakeLond.style.height = "20px";
+        SnakeLond.setAttribute("id",snakeId);
+        snakeId++;
+        return SnakeLond;
+    }
+    function Food(){//构造食物方法
+        var x;
+        var y;
+        var SnakeLond = document.createElement("input");//创建食物
+        SnakeLond.setAttribute("type","button");//食物的类型是button类型
+        SnakeLond.style.width = "20px";
+        SnakeLond.style.height = "20px";
+        SnakeLond.setAttribute("id","food");//id为food
+        x = Random() * 10;
+        y = Random() * 10;
+        SnakeLond.style.position = "absolute";//绝对定位
+        SnakeLond.style.top = x+"px";
+        SnakeLond.style.left = y+"px";
+        SnakeLond.style.background = "blue";
+        document.body.appendChild(SnakeLond);
+    }
+    function $(id){//返回指定id号的实例
+        return document.getElementById(id);
+    }
+    function KeyDown(){//键盘键入事件,获取从键盘输入而得到的键值
+        if(keyValue == 38 && event.keyCode == 40)
+            event.keyCode = 38;
+        else if(keyValue == 40 && event.keyCode == 38)
+            event.keyCode = 40;
+        else if(keyValue == 37 && event.keyCode == 39)
+            event.keyCode = 37
+        else if(keyValue == 39 && event.keyCode == 37)
+            event.keyCode = 39;
+        keyValue = event.keyCode
+        Stir();//蛇移动
+        EatFood();//蛇吃食
+    }
+    function EatFood(){//吃食方法
+        var SnakeHead = Head();
+        var score = $("score");
+        //var leng = document.getElementsByTagName("input").length-2;
+        var food = $("food");
+        var s = SnakeHead.style;
+        //如果蛇的头部与食物刚好对应的话就表示蛇吃到了食物,蛇的长度和速度就会增加,并且要重置定时器的速度
+        if(s.top == food.style.top && s.left == food.style.left){
+            speed -= 30;//速度发生改变
+            if(speed- 30 <= 30)
+                speed = 5;
+            clearInterval(time);//清除定时器
+            time = setInterval("Tir()",speed);//重置定时器
+            score.innerHTML = "积分："+num;//积分增加
+            num++;
+            food.setAttribute("id",snakeId);
+            var x = parseInt(SnakeHead.style.top);
+            var y = parseInt(SnakeHead.style.left);
+            food.style.top = x+"px";//消化食物
+            food.style.left = y+"px";
+            snakeId++;
+            Food();
+        }
+    }
+    function SelfEnd(){//蛇自杀方法
+        var SnakeHead = Head();
+        var leng = document.getElementsByTagName("input").length-1;//得到蛇的长度
+        var SnakeItem = document.getElementsByTagName("input");//得到蛇身体所有的部位
+        var headTop = SnakeHead.style;
+        var head = $(SnakeItem.length-2);//得到蛇的头部
+        for(var i=0;i<SnakeItem.length;i++){//循环蛇的每个部位
+            var items = SnakeItem.item(i).style;
+            var id = SnakeItem.item(i).id;
+            //如果蛇的头部与蛇的其它部位相吻合的话就表示蛇咬到了自己
+            if(headTop.top == items.top && headTop.left == items.left && id<leng-2){
+                clearTimeout(time);
+                alert("<^GAME ^ OVER^>");//游戏结束
+            }
+        }
+    }
+    function BumpWall(){//蛇撞墙方法
+        var SnakeHead = Head();
+        var s = SnakeHead.style;
+        var top = parseInt(s.top);
+        var left = parseInt(s.left);
+        //如果蛇移动的坐标超过了边界,则蛇撞到了墙,游戏结束
+        if(top < 0 || top >= 410 || left < 0 || left >= 410){
+            clearTimeout(time);
+            alert("<^GAME ^ OVER^>");
+        }
+    }
+    function Stir(){//蛇移动方法
+    var pointx = 0;
+    var pointy = 0;
+        var leng = document.getElementsByTagName("input").length-1;
+        var SnakeHead = document.getElementById(leng-1);
+        var SnakeBody;//申明蛇的身体
+        var leftPoint = SnakeHead.style.left;
+        var topPoint = SnakeHead.style.top;
+        //设置蛇的样式
+        for(var i=0;i<leng;i++){
+            if(i==leng-1)
+                $(i).style.backgroundColor = "purple";
+            else
+                $(i).style.backgroundColor = "black";
+        }
+        //蛇根据你按下的上下左右键来进行移动行走
+        if(keyValue == 40){
+            pointy = parseInt(SnakeHead.style.top) + 10;
+            pointx = parseInt(SnakeHead.style.left);
+        }
+        else if(keyValue == 38){
+            pointy = parseInt(SnakeHead.style.top) - 10;
+            pointx = parseInt(SnakeHead.style.left);
+        }
+        else if(keyValue == 39){
+            pointx = parseInt(SnakeHead.style.left) + 10;
+            pointy = parseInt(SnakeHead.style.top);
+        }
+        else if(keyValue == 37){
+            pointx = parseInt(SnakeHead.style.left) - 10;
+            pointy = parseInt(SnakeHead.style.top);
+        }
+        else{
+            pointx = parseInt(SnakeHead.style.left) + 10;
+            pointy = parseInt(SnakeHead.style.top);
+        }
+        SnakeBody = $(loca);//得到蛇的各个身体
+        SnakeBody.style.left = leftPoint;
+        SnakeBody.style.top = topPoint;
+        loca++;
+        if(loca == leng-1)
+            loca = 0;
+        SnakeHead.style.left = pointx + "px";//蛇按照指定方向走动
+        SnakeHead.style.top = pointy + "px";
+        var snakeSpeed = $("speed");//用来记录蛇的坐标
+        snakeSpeed.innerHTML = "坐标：<br/>"+"X "+pointx+","+"Y "+pointy;
+        BumpWall();//调用蛇撞墙方法
+        SelfEnd();//调用蛇自杀方法
+    }
+    function Head(){//返回蛇的头部
+        var leng = document.getElementsByTagName("input").length-1;//蛇的长度
+        return document.getElementById(leng-1);//蛇的头部
+    }
+    function Pause(){//暂停方法
+        alert("暂停中......");
+    } 
+    function Tir(){//计时器方法
+        Stir();
+        EatFood();
+    }
+    function onMouseMove(id){//鼠标移到指定选项的方法
+        var p = $(id);
+        p.className = "onMouseMove";
+    }
+    function onMouseOut(id){//鼠标移开指定选项的方法
+        var p = $(id);
+        p.className = "onMouseOut";
+    }
+    var time = setInterval("Tir()",speed);//定时器
+</script>
+</head>
+
+<body onkeydown="KeyDown()">
+    <div id="SnakeArea">
+    </div>
+    <!--游戏菜单-->
+    <div id="Menu">
+        <p style="color:#FF0;">游戏菜单</p>
+        <a href="Snake.html" id="start" onMouseMove="onMouseMove('start')" onMouseOut="onMouseOut('start')">重新开始</a>
+        <br/>
+        <p id="speed" onMouseMove="onMouseMove('speed')" onMouseOut="onMouseOut('speed')">坐标</p>
+        <p id="score" onMouseMove="onMouseMove('score')" onMouseOut="onMouseOut('score')">积分</p>
+        <p id="pause" onClick="Pause()" onMouseMove="onMouseMove('pause')" onMouseOut="onMouseOut('pause')">暂停</p>
+        <p id="end" onClick="javascript:window.close()" onMouseMove="onMouseMove('end')" onMouseOut="onMouseOut('end')">结束游戏</p>
+    </div>
+</body>
+</html>

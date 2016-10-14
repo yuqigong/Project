@@ -1,0 +1,53 @@
+/*文字单行省略号*/
+ .text-ellipsis(@width: 200px) {
+    /*兼容opera*/
+    -o-text-overflow: ellipsis;
+    /*这就是省略号喽*/
+    text-overflow: ellipsis;
+    /*设置超过的隐藏*/
+    overflow: hidden;
+    /*设置不折行*/
+    white-space: nowrap;
+    /*设置宽度*/
+    width: @width;
+}
+/*文字隐藏*/
+ .text-hidden {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    /* ie6,7*/
+    clip:rect(1px 1px 1px 1px);
+}
+.inline-block {
+    display: inline-block;
+    /* ie6,7*/
+    *display: inline;
+    *zoom: 1;
+}
+.clearfix {
+    zoom:1;
+    :before, :after {
+        content:"";
+        display:table;
+    }
+    :after {
+        clear:both;
+    }
+}
+// /* 经典版 */
+//  .clearfix:after {
+//     visibility: hidden;
+//     display: block;
+//     font-size: 0;
+//     content:" ";
+//     clear: both;
+//     height: 0;
+// }
+// /* IE6 */
+//  * html .clearfix {
+//     zoom: 1;
+// }
+// /* IE7 */
+//  *:first-child+html .clearfix {
+//     zoom: 1;
+// }

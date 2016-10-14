@@ -1,0 +1,377 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <title>js-touch-slider</title>
+    <!-- Set wap app icon -->
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png" />
+
+    <!-- Base style -->
+    <link rel="stylesheet" href="../lib/css/base/base.css" />
+    <link rel="stylesheet" href="../lib/css/base/main.css" />
+    <link rel="stylesheet" href="../lib/css/module/js-touch-slider.css" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="jPaper" class="paper">
+            <div class="fixed-bar">
+                <div class="focus">
+                    <img src="/lib/img/js-touch-slider/top.jpg" alt="">
+                </div>
+            </div>
+            <div class="p p1">
+                <div id="jBanner" class="banner">
+                    <!-- <div class="view">
+                        <ul>
+                            <li>
+                                <img src="../lib/img/gallery/banner-1/61.jpg" alt="">
+                            </li>
+                            <li>
+                                <img src="../lib/img/gallery/banner-1/62.jpg" alt="">
+                            </li>
+                            <li>
+                                <img src="../lib/img/gallery/banner-1/63.jpg" alt="">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="focus">
+                        <a class="on" href="javascript:;"></a>
+                        <a href="javascript:;"></a>
+                        <a href="javascript:;"></a>
+                    </div>
+                    <div class="content">
+                        <div class="wrap">
+                            <p>1</p>
+                            <p>2</p>
+                            <p>3</p>
+                        </div>
+                    </div> -->
+                </div>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="p p2">
+                <span></span>
+                <span></span>
+            </div>
+            <div class="p p3">
+                <span></span>
+                <span></span>
+            </div>
+            <div class="p p4">
+                <span></span>
+                <span></span>
+            </div>
+            <div class="p p5">
+                <span></span>
+                <span></span>
+            </div>
+            <div class="p p6">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- Base Javascript Lib -->
+    <script src="../lib/script/base/Zepto/zepto.min.js"></script>
+    <script>
+        $(function() {
+            var papers = $('#jPaper .p'),
+                lens = papers.length,
+                iSlideHeight,
+                startX, startY,
+                timer = 0,
+                iTarget,
+                iStart = 0,
+                iEnd = lens - 1;
+
+            var touchEvent = {
+                Start: function(e) {
+                    e.preventDefault();
+
+                    var touch = e.touches[0];
+                    var posX = touch.pageX,
+                        posY = touch.pageY;
+
+                    iTarget = $(this).parent().attr('target');
+                    iSlideHeight = $(this).parent().height();
+                    startY = posY;
+                    startX = posX;
+
+                    console.log('##touchStart##');
+                    console.log('startY:' + startY + ' startX:' + startX);
+                    console.log('iTarget:' + iTarget);
+                    console.log('iSlideHeight:' + iSlideHeight);
+                    console.log('timer:' + timer);
+                },
+                Move: function(e) {
+                    console.log('##touchMove##');
+                    e.preventDefault();
+
+                    var touch = e.touches[0];
+                    var posX = touch.pageX,
+                        posY = touch.pageY;
+
+                    console.log('startY:' + startY + ' startX:' + startX);
+                    console.log('iTarget:' + iTarget);
+
+                    // 向上
+                    if (startY > 520 && posY - startY < 10) {
+                        console.log('##Slide up##');
+                        if (iTarget == iEnd) return;
+                        var h = -iSlideHeight + 'px';
+                        $(this).parent()[0].style.webkitTransition = 'all ease 0.5s';
+                        $(this).parent()[0].style.webkitTransform = 'translate3d(0,' + h + ',0)';
+                    }
+                    // 向下
+                    if (80 < startY < 110 && posY - startY > 10) {
+                        console.log('##Slide down##');
+                        if (iTarget == iStart) return;
+                        var h = 0 + 'px';
+                        $(this).parent().prev()[0].style.webkitTransition = 'all ease 0.5s';
+                        $(this).parent().prev()[0].style.webkitTransform = 'translate3d(0,' + h + ',0)';
+                    }
+                },
+                End: function(e) {
+                    e.preventDefault();
+                }
+            }
+
+            papers.each(function(i) {
+                var el = $(this)[0];
+
+                $(this).css({
+                    'z-index': lens - i
+                }).attr('target', i);
+
+                var spanUp = $(this).children('span').eq(0)[0],
+                    spanDown = $(this).children('span').eq(1)[0];
+
+                // bind event
+                spanUp.addEventListener('touchstart', touchEvent.Start, false);
+                spanUp.addEventListener('touchmove', touchEvent.Move, false);
+                spanUp.addEventListener('touchend', touchEvent.End, false);
+
+                spanDown.addEventListener('touchstart', touchEvent.Start, false);
+                spanDown.addEventListener('touchmove', touchEvent.Move, false);
+                spanDown.addEventListener('touchend', touchEvent.End, false);
+            });
+
+
+            var gBanner = {
+                target: 'jBanner',
+                time: 2000,
+                width: 216,
+                height: 167,
+                imgs: [{
+                    url: '../lib/img/gallery/banner-1/61.jpg'
+                }, {
+                    url: '../lib/img/gallery/banner-1/62.jpg'
+                }, {
+                    url: '../lib/img/gallery/banner-1/63.jpg'
+                }],
+                curr: 0,
+                isRunning: false,
+                init: function() {
+                    var elBanner = $('#' + gBanner.target);
+                    var args = {
+                        width: gBanner.width,
+                        height: gBanner.height,
+                        imgs: gBanner.imgs
+                    };
+
+                    gBanner.leng = args.imgs.length;
+
+                    var elView = $('<div class="view">'),
+                        elFocus = $('<div class="focus">'),
+                        elContent = $('<div class="content">');
+
+                    var sView = sFocus = sContent = '',
+                        i = 0,
+                        l = gBanner.leng,
+                        iWidth = args.width * l;
+
+                    sView += '<ul style="width:' + iWidth + 'px;height:' + args.height + 'px">';
+                    sContent += '<div class="wrap" style="width:' + 240 * l + 'px">';
+                    for (; i < l; i++) {
+                        var index = i + 1;
+                        sFocus += '<a href="javascript:;"></a>';
+                        sContent += '<p>' + index + '</p>';
+
+                        sView += '<li style="width:' + args.width + 'px;height:' + args.height + 'px">';
+                        sView += '<img src="' + args.imgs[i].url + '" alt="">';
+                        sView += '</li>';
+                    }
+                    sView += '</ul>';
+                    sContent += '</div">';
+
+                    elView.html(sView);
+                    elFocus.html(sFocus);
+                    elContent.html(sContent);
+
+                    elFocus.children('a').eq(0).addClass('on');
+                    elBanner.append(elView, elFocus, elContent);
+
+                    gBanner.view = elView;
+                    gBanner.focus = elFocus;
+                    gBanner.title = elContent;
+
+                    gBanner.touchEvent();
+                    gBanner.auto();
+                },
+                clear: function() {
+                    clearTimeout(gBanner.timer);
+                },
+                auto: function() {
+                    gBanner.clear();
+                    gBanner.isRunning = true;
+                    var leng = gBanner.leng,
+                        speed = gBanner.width,
+                        iSpeed = 240;
+                    (function(n) {
+                        if (n < leng) {
+                            speed = '-' + (n * speed) + 'px';
+                            iSpeed = '-' + (n * iSpeed) + 'px';
+
+                            gBanner.view.children('ul').css({
+                                'transition': 'all ease 0.5s',
+                                '-webkit-transform': 'translate3d(' + speed + ', 0, 0)'
+                            });
+
+                            gBanner.title.find('.wrap').css({
+                                'transition': 'all ease 0.5s',
+                                '-webkit-transform': 'translate3d(' + iSpeed + ', 0, 0)'
+                            });
+
+                            gBanner.focus.children('a').eq(n)
+                                .addClass('on')
+                                .siblings()
+                                .removeClass('on');
+
+                            n++;
+                            if (n == leng) {
+                                n = 0;
+                            }
+                        } else {
+                            n = 0;
+                        }
+                        gBanner.curr = n;
+                        gBanner.isRunning = false;
+                    })(gBanner.curr);
+
+                    gBanner.timer = setTimeout(gBanner.auto, gBanner.time);
+                },
+                touchEvent: function() {
+                    var startX, startY, msg, flag = true;
+                    var curr = gBanner.curr,
+                        leng = gBanner.leng,
+                        speed = gBanner.width,
+                        view = gBanner.view,
+                        focus = gBanner.focus,
+                        title = gBanner.title;
+
+                    view.on('touchstart', function(event) {
+                        event.preventDefault();
+                        var touch = event.touches[0];
+                        var posX = touch.pageX,
+                            posY = touch.pageY;
+                        console.log('### gBanner touchstart');
+                        // console.log('posX:' + posX + ' posY:' + posY);
+                        console.log('##curr:' + gBanner.curr);
+                        startX = posX;
+                        startY = posY;
+
+                        if (!gBanner.isRunning) {
+                            gBanner.clear();
+                        }
+                    });
+
+                    view.on('touchmove', function(event) {
+                        event.preventDefault();
+                        var touch = event.touches[0];
+                        var posX = touch.pageX,
+                            posY = touch.pageY;
+                        // console.log('### gBanner touchmove');
+                        // console.log('posX:' + posX + ' posY:' + posY);
+                        if (posX - startX > 0) {
+                            // console.log('right');
+                            msg = 'right';
+                        } else if (posX - startX < 0) {
+                            // console.log('left');
+                            msg = 'left';
+                        }
+                    });
+
+                    view.on('touchend', function(event) {
+                        var self = $(this),
+                            move = self.children('ul'),
+                            iSpeed = 0,
+                            _iSpeed = 0,
+                            _speed = 240;
+
+                        console.log('### gBanner touchend');
+
+                        if (msg === 'right') {
+                            if (curr == 0) {
+                                curr = gBanner.leng - 1;
+                                iSpeed = '-' + (curr * speed) + 'px';
+                                _iSpeed = '-' + (curr * _speed) + 'px';
+                            } else {
+                                curr--;
+                                iSpeed = '-' + (curr * speed) + 'px';
+                                _iSpeed = '-' + (curr * _speed) + 'px';
+                            }
+                        }
+
+                        if (msg === 'left') {
+                            if (curr === gBanner.leng - 1) {
+                                curr = 0;
+                                iSpeed = (curr * speed) + 'px';
+                                _iSpeed = (curr * _speed) + 'px';
+                            } else {
+                                curr++;
+                                iSpeed = '-' + (curr * speed) + 'px';
+                                _iSpeed = '-' + (curr * _speed) + 'px';
+                            }
+                        }
+
+                        console.log('msg:' + msg);
+                        console.log('speed:' + iSpeed);
+                        gBanner.curr = curr;
+
+                        setTimeout(function() {
+                            move.css({
+                                'transition': 'all ease 0.5s',
+                                '-webkit-transform': 'translate3d(' + iSpeed + ', 0, 0)'
+                            });
+
+                            title.find('.wrap').css({
+                                'transition': 'all ease 0.5s',
+                                '-webkit-transform': 'translate3d(' + _iSpeed + ', 0, 0)'
+                            });
+
+                            focus.children('a').eq(curr)
+                                .addClass('on')
+                                .siblings()
+                                .removeClass('on');
+                        }, 50);
+                        setTimeout(gBanner.auto, 3000);
+                    });
+                }
+            };
+            gBanner.init();
+        });
+    </script>
+</body>
+
+</html>

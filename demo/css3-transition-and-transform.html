@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css3 transition and transform</title>
+    <link rel="stylesheet" href="../lib/css/base/base.css">
+    <link rel="stylesheet" href="../lib/css/module/css3-transition-and-transform.css">
+    <script src="../lib/script/base/Zepto/zepto-1.1.3.js"></script>
+</head>
+<body>
+    <h1>Moving to the Right</h1>
+    <div class="axis one">
+        <img src="../lib/img/css3-transition-and-transform/van-to-right.png" alt="" class="obj van move-right">
+    </div>
+    <div class="wrapper">
+        <div class="pager darkred">
+            <a href="javascript:;" class="next">next</a>
+        </div>
+        <div class="pager darkblue">
+            <a href="javascript:;" class="next">next</a>
+        </div>
+    </div>
+    <script>
+    $(function(){
+        $('a').on('click', function() {
+            $(this).parents('.wrapper').addClass('next');
+        });
+    });
+    </script>
+</body>
+</html>

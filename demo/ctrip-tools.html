@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ctrip-tools</title>
+    <script type="text/javascript" src="../lib/script/base/jquery/jquery.js"></script>
+</head>
+
+<body>
+    <div id="formatDate">
+        <input type="text">
+        <br>
+        <input type="text">
+    </div>
+    <script type="text/javascript">
+    $(function() {
+        var formatDate = function(date, type) {
+            var pattern = /^(\d{1,4})\-(\d{1,2})\-(\d{1,2})\s+(\d{1,2})\:(\d{1,2})\:(\d{1,2})$/;
+            var y = '',
+                m = '',
+                d = '',
+                h = '',
+                min = '';
+            var f = function(d) {
+                return d < 10 ? '0' + d : d;
+            };
+            if (date) {
+                var dateArr = date.match(pattern);
+                if (dateArr) {
+                    y = +dateArr[1];
+                    m = f(+dateArr[2]);
+                    d = f(+dateArr[3]);
+                    h = f(+dateArr[4]);
+                    min = f(+dateArr[5]);
+                } else {
+                    var t = date.toDate(8);
+                    y = t.getFullYear();
+                    m = f(t.getMonth() + 1);
+                    d = f(t.getDate());
+                    h = f(t.getHours());
+                    min = f(t.getMinutes());
+                }
+            }
+            switch (type) {
+                case "yyyy-mm-dd":
+                    return [y + "-" + m + "-" + d, h + ":" + min];
+                    break;
+                case "m月d日":
+                    return [m + "月" + d + "日", h + ":" + min];
+                    break;
+                default:
+                    return [(m && d) ? (m + "-" + d) : "", (h && min) ? (h + ":" + min) : ""];
+                    break;
+            }
+        };
+        var fn = function() {
+            var elFormatDate = $('#formatDate'),
+                inputDate = elFormatDate.children('input')[0],
+                outDate = elFormatDate.children('input')[1],
+                value = '';
+
+            $(inputDate).on('blur', function() {
+                value = formatDate($(this).val());
+                $(outDate).val(value);
+            });
+        }();
+    });
+    </script>
+</body>
+
+</html>

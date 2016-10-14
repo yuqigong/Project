@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <title>俄航冬季大促</title>
+    <script>
+        window.spa_start = (new Date()).getTime();
+
+        var ua = navigator.userAgent || '';
+        var isInApp = false;
+        if (ua && /ctrip/i.test(ua)) {
+            window.localStorage.setItem('isInApp', 1);
+            isInApp = true;
+            document.write('<script src="http://webresource.c-ctrip.com/code/lizard/2.0/web/3rdlibs/bridge.js" type="text/javascript"></' + 'script>');
+        }
+
+        window.onerror = function(e) {
+            alert('This Page Error:' + JSON.stringify(e));
+        }
+    </script>
+    <!-- Base style -->
+    <link rel="stylesheet" href="../lib/css/base/base.css">
+    <link rel="stylesheet" href="../lib/css/module/spa.css">
+    <style>
+        /*home*/
+
+        .ad {
+            height: 100%;
+            width: 100%;
+            background: url(http://pages.ctrip.com/flight/h5/act/201511/qatar/img/bg_top_1.jpg) no-repeat 0 0;
+            background-size: 100% 100%;
+            z-index: 1;
+        }
+
+        #reserve {
+            display: block;
+            width: 132px;
+            height: 36px;
+            margin-left: -66px;
+            position: absolute;
+            left: 50%;
+            bottom: 10%;
+            z-index: 10;
+            background: url(http://pages.dev.sh.ctriptravel.com/flight/h5/act/201511/qatar/img/reserve.png);
+            background-size: 132px 36px;
+            overflow: hidden;
+            border-radius: 7px;
+        }
+        /*view_1*/
+
+        .qt-ctlist {
+            position: absolute;
+            list-style: none;
+            width: 240px;
+            height: 240px;
+            left: 50%;
+            margin-left: -120px;
+            top: 35%;
+        }
+
+        .ctrow {
+            margin-top: 35px;
+            height: 40px;
+        }
+
+        .ctitem {
+            float: left;
+            width: 100px;
+            height: 36px;
+            border-radius: 3px;
+            text-align: center;
+            line-height: 36px;
+            border: 1px solid #5f133d;
+            font-size: 18px;
+        }
+
+        .ctrow .ctitem:nth-child(2) {
+            margin-left: 34px;
+        }
+
+        .ctitem img {
+            display: inline-block;
+            width: 13px;
+            height: 20px;
+            padding-right: 15px;
+            vertical-align: middle;
+        }
+
+        .logo {
+            text-align: center;
+            height: 80px;
+            position: relative;
+        }
+
+        .banner {
+            text-align: center;
+            background: #004998;
+            height: 54px;
+            position: relative;
+        }
+
+        .logo .sp {
+            display: inline-block;
+            height: 20px;
+            width: 97px;
+        }
+
+        .banner .sp {
+            display: inline-block;
+            height: 20px;
+            width: 123px;
+        }
+
+        .sp img {
+            width: 100%;
+            height: 100%;
+        }
+        /* view_2 */
+
+        .qt-list {
+            position: absolute;
+            top: 12%;
+            left: 0;
+            width: 100%;
+            height: 85%;
+            overflow: auto
+        }
+
+        .qt-item {
+            padding-left: 20px;
+            padding-right: 25px;
+            margin-top: 15px;
+            position: relative;
+            text-align: left;
+        }
+
+        .qt-item p {
+            clear: left;
+            font-size: 12px;
+            color: #AAA
+        }
+
+        .qt-loc-det {
+            list-style: none;
+            font-size: 14px
+        }
+
+        .qt-loc-det li {
+            float: left;
+            margin-left: 5px
+        }
+
+        .qt-loc-det li:first-child {
+            margin-left: 0
+        }
+
+        .qt-loc-btn {
+            background: url(http://pages.dev.sh.ctriptravel.com/flight/h5/act/201511/qatar/img/qt_rt_3.png) no-repeat;
+            background-size: contain;
+            width: 17px;
+            height: 17px
+        }
+
+        .qt-pri {
+            position: absolute;
+            width: 100px;
+            left: 50%;
+            margin-left: -10px;
+            font-size: 12px
+        }
+
+        .qt-btn {
+            float: right;
+            display: inline-block;
+            width: 45px;
+            height: 27px;
+            line-height: 28px;
+            text-align: center;
+            background: #314b87;
+            border-radius: 2px;
+            font-size: 14px;
+            color: #fff;
+            text-decoration: none
+        }
+    </style>
+</head>
+
+<body>
+    <div id="j_spa" class="wrapper hide">
+        <div class="view">
+            <div class="ad"></div>
+            <a href="javascript:;" id="reserve"></a>
+            <div class="spa-downward center">
+                <span class="spa-downward-arrow spa-downward-animation center">
+            </div>
+        </div>
+        <div class="view">
+            <div class="logo">
+                <span class="sp center"><img src="http://pages.dev.sh.ctriptravel.com/flight/h5/act/201511/qatar/img/logo_3.png" alt=""></span>
+            </div>
+            <div class="banner">
+                <span class="sp center"><img src="http://pages.dev.sh.ctriptravel.com/flight/h5/act/201511/qatar/img/qxzcfd.png" alt=""></span>
+            </div>
+            <ul class="qt-ctlist">
+                <li class="ctrow">
+                    <div class="ctitem js-ctitem" data-city="1">
+                        <img src="http://pages.dev.sh.ctriptravel.com/flight/h5/act/201511/qatar/img/target.png">北京
+                    </div>
+                    <div class="ctitem js-ctitem" data-city="2">
+                        <img src="http://pages.dev.sh.ctriptravel.com/flight/h5/act/201511/qatar/img/target.png">上海
+                    </div>
+                </li>
+                <li class="ctrow">
+                    <div class="ctitem js-ctitem" data-city="3">
+                        <img src="http://pages.dev.sh.ctriptravel.com/flight/h5/act/201511/qatar/img/target.png">广州
+                    </div>
+                    <div class="ctitem js-ctitem" data-city="4">
+                        <img src="http://pages.dev.sh.ctriptravel.com/flight/h5/act/201511/qatar/img/target.png">香港
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="view">
+            <div class="logo">
+                <span class="sp center"><img src="http://pages.dev.sh.ctriptravel.com/flight/h5/act/201511/qatar/img/logo_3.png" alt=""></span>
+            </div>
+            <ul class="qt-list"></ul>
+        </div>
+        <div class="view">
+            <div class="logo">
+                <span class="sp center"><img src="http://pages.dev.sh.ctriptravel.com/flight/h5/act/201511/qatar/img/logo_3.png" alt=""></span>
+            </div>
+            <ul class="qt-list"></ul>
+        </div>
+        <div class="view">
+            <div class="logo">
+                <span class="sp center"><img src="http://pages.dev.sh.ctriptravel.com/flight/h5/act/201511/qatar/img/logo_3.png" alt=""></span>
+            </div>
+            <ul class="qt-list"></ul>
+        </div>
+        <div class="view">
+            <div class="logo">
+                <span class="sp center"><img src="http://pages.dev.sh.ctriptravel.com/flight/h5/act/201511/qatar/img/logo_3.png" alt=""></span>
+            </div>
+            <ul class="qt-list"></ul>
+        </div>
+    </div>
+    <div id="loading" class="spa-loading">
+        页面加载中<span class="dotting"></span>
+    </div>
+    <script type="text/template" id="tpl_item">
+        <li class="qt-item" data-city="{trackId}">
+            <div class="qt-con">
+                <ul class="qt-loc-det">
+                    <li class="qt-loc-dep">{dep}</li>
+                    <li class="qt-loc-btn"></li>
+                    <li class="qt-loc-des">{arr}</li>
+                </ul>
+                <div class="qt-pri">￥<span style="font-size: 18px;">{price}</span>起</div>
+                <a href="javascript:;" class="qt-btn js-btn">预订</a>
+            </div>
+            <p>旅行适用日期：{info}</p>
+        </li>
+    </script>
+    <!-- Base Javascript Lib -->
+    <script src='http://webresource.c-ctrip.com/code/ubt/_mubt.min.js'></script>
+    <script src='../lib/script/base/zepto/zepto.min.js'></script>
+    <script src="../lib/script/module/spa.js"></script>
+    <script>
+        var source = [
+            [{
+                dep: '北京',
+                arr: '雅典',
+                price: '1730',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=710&c4=20160120&c5=20160126&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '阿姆斯特丹',
+                price: '1730',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=176&c4=20160120&c5=20160126&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '法兰克福',
+                price: '1400',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=250&c4=20160120&c5=20160126&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '柏林',
+                price: '1400',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=193&c4=20160120&c5=20160126&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '杜赛尔多夫',
+                price: '1400',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=762&c4=20160120&c5=20160126&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '慕尼黑',
+                price: '1400',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=363&c4=20160120&c5=20160126&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '汉堡',
+                price: '1400',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=763&c4=20160120&c5=20160126&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '汉诺威',
+                price: '1400',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=1248&c4=20160120&c5=20160129&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '斯图加特',
+                price: '1400',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=765&c4=20160120&c5=20160129&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '德雷斯顿',
+                price: '1400',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=1412&c4=20160120&c5=20160129&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '博洛尼亚',
+                price: '1400',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=1240&c4=20160120&c5=20160129&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '哥本哈根',
+                price: '1730',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=260&c4=20160119&c5=20160129&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '巴黎',
+                price: '1400',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=192&c4=20160119&c5=20160129&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '维也纳',
+                price: '1730',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=651&c4=20160119&c5=20160129&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '莫斯科',
+                price: '2640',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=366&c4=20160119&c5=20160129&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '华沙',
+                price: '1730',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=293&c4=20160210&c5=20160220&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '布达佩斯',
+                price: '1730',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=637&c4=20160210&c5=20160220&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '苏黎世',
+                price: '1730',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=434&c4=20160210&c5=20160220&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '日内瓦',
+                price: '1730',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=666&c4=20160202&c5=20160209&c7=1&c9=SU'
+            }, {
+                dep: '北京',
+                arr: '伦敦',
+                price: '1400',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=1&c3=338&c4=20160202&c5=20160209&c7=1&c9=SU'
+            }],
+            [{
+                dep: '上海',
+                arr: '莫斯科',
+                price: '3029',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=366&c4=20160216&c5=20160226&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '圣彼得堡',
+                price: '3029',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=798&c4=20151228&c5=20160110&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '伊斯坦布尔',
+                price: '1544',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=532&c4=20160216&c5=20160225&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '巴黎',
+                price: '1544',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=192&c4=20160216&c5=20160226&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '伦敦',
+                price: '1544',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=338&c4=20160119&c5=20160303&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '布拉格',
+                price: '1544',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=1288&c4=20160216&c5=20160225&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '柏林',
+                price: '1544',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=193&c4=20160222&c5=20160228&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '杜塞尔多夫',
+                price: '1544',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=762&c4=20160216&c5=20160225&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '威尼斯',
+                price: '1544',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=688&c4=20160216&c5=20160225&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '汉堡',
+                price: '1544',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=763&c4=20160121&c5=20160303&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '马拉加',
+                price: '1544',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=1268&c4=20160216&c5=20160225&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '德累斯顿',
+                price: '1544',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=1412&c4=20160216&c5=20160225&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '博洛尼亚',
+                price: '1544',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=1240&c4=20160216&c5=20160225&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '斯图加特',
+                price: '1544',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=765&c4=20160216&c5=20160225&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '汉诺威',
+                price: '1544',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=1248&c4=20160120&c5=20160303&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '法兰克福',
+                price: '1544',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=250&c4=20160216&c5=20160225&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '雅典',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=710&c4=20160216&c5=20160225&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '阿姆斯特丹',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=176&c4=20160216&c5=20160225&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '华沙',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=293&c4=20151229&c5=20160115&c7=1&c9=SU'
+            }, {
+                dep: '上海',
+                arr: '布达佩斯',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=2&c3=637&c4=20160216&c5=20160225&c7=1&c9=SU'
+            }],
+            [{
+                dep: '广州',
+                arr: '莫斯科',
+                price: '3019',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=366&c4=20160302&c5=20160310&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '圣彼得堡',
+                price: '3029',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=798&c4=20160302&c5=20160310&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '阿姆斯特丹',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=176&c4=20160302&c5=20160310&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '雅典',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=710&c4=20160302&c5=20160310&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '柏林',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=193&c4=20151226&c5=20160119&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '布鲁塞尔',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=196&c4=20160302&c5=20160310&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '哥本哈根',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=260&c4=20160302&c5=20160310&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '杜塞尔多夫',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=762&c4=20160302&c5=20160310&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '法兰克福',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=250&c4=20160302&c5=20160310&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '日内瓦',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=666&c4=20160302&c5=20160310&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '汉堡',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=763&c4=20160302&c5=20160310&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '赫尔辛基',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=277&c4=20160217&c5=20160226&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '伦敦',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=338&c4=20160302&c5=20160310&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '慕尼黑',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=363&c4=20160120&c5=20160129&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '巴黎',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=192&c4=20160120&c5=20160129&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '布拉格',
+                price: '2241',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=1288&c4=20160120&c5=20160129&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '斯德哥尔摩',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=420&c4=20160302&c5=20160310&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '威尼斯',
+                price: '2241',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=688&c4=20160120&c5=20160129&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '维也纳',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=651&c4=20160120&c5=20160129&c7=&c9=SU'
+            }, {
+                dep: '广州',
+                arr: '苏黎世',
+                price: '2151',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=32&c3=434&c4=20160120&c5=20160129&c7=&c9=SU'
+            }],
+            [{
+                dep: '香港',
+                arr: '莫斯科',
+                price: '2537',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=366&c4=20160301&c5=20160313&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '圣彼得堡',
+                price: '2537',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=798&c4=20160301&c5=20160313&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '阿姆斯特丹',
+                price: '3282',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=176&c4=20160301&c5=20160313&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '雅典',
+                price: '3282',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=710&c4=20160301&c5=20160313&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '柏林',
+                price: '3282',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=193&c4=20160301&c5=20160313&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '布鲁塞尔',
+                price: '3282',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=196&c4=20160301&c5=20160313&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '哥本哈根',
+                price: '3282',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=260&c4=20160301&c5=20160314&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '杜塞尔多夫',
+                price: '3282',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=762&c4=20160301&c5=20160314&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '法兰克福',
+                price: '3282',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=250&c4=20160301&c5=20160314&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '日内瓦',
+                price: '3282',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=666&c4=20160301&c5=20160314&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '汉堡',
+                price: '3282',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=763&c4=20160301&c5=20160313&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '赫尔辛基',
+                price: '3282',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=277&c4=20160301&c5=20160314&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '伦敦',
+                price: '3282',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=338&c4=20160301&c5=20160314&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '慕尼黑',
+                price: '2903',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=363&c4=20160301&c5=20160314&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '奥斯陆',
+                price: '3282',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=827&c4=20160301&c5=20160315&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '巴黎',
+                price: '3282',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=192&c4=20160301&c5=20160314&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '斯德哥尔摩',
+                price: '3282',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=420&c4=20160301&c5=20160314&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '威尼斯',
+                price: '3282',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=688&c4=20160301&c5=20160314&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '维也纳',
+                price: '3282',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=651&c4=20160301&c5=20160314&c7=&c9=SU'
+            }, {
+                dep: '香港',
+                arr: '华沙',
+                price: '3282',
+                info: '',
+                url: 'ctrip://wireless/flight_int_tolist?c1=2&c2=58&c3=293&c4=20160301&c5=20160314&c7=&c9=SU'
+            }]
+        ];
+
+        /*
+         * @see http://cdataportal.sh.ctripcorp.com/ubt/index.php?q=ubt_api#_tracklog
+         */
+        var sendUbt = function(tracklogKey, oParams, callback) {
+            tracklogKey = tracklogKey || document.title;
+            var value = '';
+            for (var key in oParams) {
+                if (oParams.hasOwnProperty(key)) {
+                    value += key + '=' + oParams[key] + '&';
+                }
+            }
+
+            value = value ? value.substring(0, value.length - 1) : value;
+
+            if (typeof window['__bfi'] === 'undefined') {
+                window['__bfi'] = [];
+            }
+
+            if (typeof callback === 'undefined') {
+                callback = function() {
+                    console.log('UBT Sent successfully!');
+                }
+            };
+
+            // 自定义PV接口
+            window['__bfi'].push(['_asynRefresh', oParams, callback]);
+
+            // 自定义数据收集
+            window['__bfi'].push(['_tracklog', tracklogKey, value, callback])
+        };
+
+        /**
+         * [stringTemplate 字符串模板]
+         * @param  {[string]} str  [字符串]
+         * @param  {[object]} opts [值]
+         * @return {[string]}      [字符串]
+         */
+        var stringTemplate = function(str, opts) {
+            for (var k in opts) {
+                if (opts.hasOwnProperty(k)) {
+                    str = str.replace(new RegExp('{' + k + '}', 'g'), opts[k]);
+                }
+            }
+            return str;
+        };
+
+        // Current Page Script
+        $(function() {
+            sendUbt('qatar_index_20151208', {
+                pageUrl: location.href
+            });
+
+            var app_spa = new Spa();
+
+            app_spa.config({
+                spaId: 'j_spa',
+                subClassName: 'view'
+            });
+
+            app_spa.import(function() {
+
+                window.app = {
+                    callback: function(jsonobj) {
+                        var tagname = jsonobj.tagname;
+
+                        if (tagname == 'back') {
+                            // CtripUtil.app_back_to_last_page("This is a json string for my previous H5 page", false);
+
+                            // return true;
+                        } else if (tagname == "download_data") {
+                            obj_pic = jsonobj;
+                        } else if (tagname == "send_http_pipe_request") {
+
+                        } else if (tagname == "web_view_finished_load") {
+
+                            var nav_json = {
+                                "center": [{
+                                    "tagname": "title",
+                                    "value": "俄航冬季大促"
+                                }]
+                            };
+                            var json_str = JSON.stringify(nav_json);
+                            CtripBar.app_refresh_nav_bar(json_str);
+
+                            CtripPage.app_hide_loading_page();
+
+                        } else if (tagname == "init_member_H5_info") {
+
+                        } else if (tagname == "finished_login") {
+
+                        } else if (tagname == 'share') {
+
+                        }
+                    }
+                };
+            });
+
+            var tplItem = $('#tpl_item').html(),
+                infos = ['2015-11-1 至 2016-3-31', '截止至2016年3月31日', '2015-11-24 至 2016-3-31', '2015-10-30 至 2016-3-31'],
+                elpage = $('#j_spa'),
+                strCity = [];
+
+            $(source).each(function(i, o) {
+                var cityData = o,
+                    items = '';
+
+                $(cityData).each(function(j, d) {
+                    d.info = infos[i];
+                    d.trackId = d.dep + '_' + j;
+                    var item = stringTemplate(tplItem, d);
+                    items += item;
+                });
+
+                strCity.push(items);
+            });
+
+            var getCityNo = function(keyName) {
+                var searchStr = location.hash.split('?')[1];
+                if (searchStr.length == 0) {
+                    return null;
+                }
+                var collection = searchStr.split('&');
+                for (var i = 0; i < collection.length; i++) {
+                    var tmp = collection[i].split('=');
+                    if (tmp.length < 2) {
+                        continue;
+                    }
+                    if (tmp[0].toUpperCase() == keyName.toUpperCase()) {
+                        return tmp[1];
+                    }
+                }
+                return null;
+            };
+
+            elpage.on('click', '.js-btn', function(e) {
+                var target = $(e.currentTarget).parents('.qt-item'),
+                    index = target.index(),
+                    trackId = target.data('city');
+
+                if (isInApp) {
+                    sendUbt('qatar_index_20151208_btn', {
+                        btn: trackId
+                    });
+                    var cityNo = +getCityNo('city') - 1;
+                    CtripUtil.app_open_url(source[cityNo][index].url, 1, '', '', true, {});
+                }
+
+            });
+
+            app_spa.add('/', 'home', '', function(self, options) {
+
+                self.load();
+                app_spa.show();
+
+                var handler = function(e) {
+                    $(options.views[1]).show();
+                    $(options.views[1]).css('top', '100%');
+                    document.getElementById('j_spa').style.webkitTransform = 'translate3d(0, -100%, 0)';
+
+                    setTimeout(function() {
+                        self.view.hide();
+                    }, 1000);
+
+                    localStorage.setItem('SPA_IS_ANIMATION', 0);
+                    location.hash = '/view_1';
+                };
+
+                // 点击预定
+                $('#reserve').on('click', handler);
+
+                var oldPoint = 0,
+                    isAnimate = false,
+                    gap = 0;
+
+                // 注册滑动事件
+                self.view.on('touchstart', function(e) {
+
+                    var touch = e.touches[0];
+                    oldPoint = touch.clientY;
+
+                }).on('touchmove', function(e) {
+
+                    var touch = e.touches[0],
+                        currtPoint = touch.clientY;
+
+                    gap = currtPoint - oldPoint;
+
+                }).on('touchend', function(e) {
+
+                    // 下滑
+                    if (gap < 0 && !isAnimate) {
+                        handler(e);
+                    }
+
+                });
+
+                var tc = +((new Date()).getTime() - window.spa_start) + 'ms';
+                console.log('time-cost:' + tc);
+            });
+
+            app_spa.add('/view_1', 'list', '', function(self, options) {
+                if (+localStorage.getItem('SPA_IS_ANIMATION')) {
+                    self.load();
+                }
+                app_spa.show();
+                localStorage.setItem('SPA_IS_ANIMATION', 1);
+
+                // 选择城市
+                self.view.on('click', '.js-ctitem', function(e) {
+                    var cityNo = $(e.currentTarget).data('city');
+                    sendUbt('qatar_index_20151208_cityNo', {
+                        cityNo: cityNo
+                    });
+                    location.hash = '/view_2?city=' + cityNo;
+                });
+            });
+
+            app_spa.add('/view_2?city=1', 'city_1', '', function(self, options) {
+                localStorage.setItem('SPA_IS_ANIMATION', 1);
+                self.load();
+                app_spa.show();
+                self.view.find('.qt-list').empty();
+                self.view.find('.qt-list').append(strCity[0]);
+            });
+
+            app_spa.add('/view_2?city=2', 'city_2', '', function(self, options) {
+                // alert(2)
+                localStorage.setItem('SPA_IS_ANIMATION', 1);
+                self.load();
+                app_spa.show();
+                self.view.find('.qt-list').empty();
+                self.view.find('.qt-list').append(strCity[1]);
+            });
+
+            app_spa.add('/view_2?city=3', 'city_3', '', function(self, options) {
+                // alert(3)
+                localStorage.setItem('SPA_IS_ANIMATION', 1);
+                self.load();
+                app_spa.show();
+                self.view.find('.qt-list').empty();
+                self.view.find('.qt-list').append(strCity[2]);
+            });
+
+            app_spa.add('/view_2?city=4', 'city_4', '', function(self, options) {
+                // alert(4)
+                localStorage.setItem('SPA_IS_ANIMATION', 1);
+                self.load();
+                app_spa.show();
+                self.view.find('.qt-list').empty();
+                self.view.find('.qt-list').append(strCity[3]);
+            });
+
+            app_spa.run();
+        });
+    </script>
+</body>
+
+</html>

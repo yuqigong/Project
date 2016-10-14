@@ -1,0 +1,50 @@
+body{
+    text-align: center;
+}
+
+h1{
+    font-size: 40px;
+    line-height: 2;
+}
+
+.axis{
+    position: relative;
+    margin: 0 auto;
+}
+.axis.one {
+    background: url("../../img/css3-transition-and-transform/axis-1.jpg") no-repeat;
+    width: 900px;
+    height: 900px;
+}
+.obj {
+    position: absolute;
+}
+.van {
+    top: 45%;
+    left: 44%;
+}
+.axis:hover .move-right {
+    transform: translate(350px,0);
+    -webkit-transform: translate(350px,0); /** Chrome & Safari **/
+    -o-transform: translate(350px,0); /** Opera **/
+    -moz-transform: translate(350px,0); /** Firefox **/
+}
+.axis:hover .obj {
+    transition: all 2s ease-in-out;
+    -webkit-transition: all 2s ease-in-out; /** Chrome & Safari **/
+    -moz-transition: all 2s ease-in-out; /** Firefox **/
+    -o-transition: all 2s ease-in-out; /** Opera **/
+}
+
+.wrapper{
+    position: relative;
+    width: 100px;
+    height: 300px;
+    overflow: hidden;
+}
+.wrapper .pageer{
+    position: absolute;
+    width: 100px;
+    height: 300px;
+    top: 0;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>js-window-close</title>
+</head>
+
+<body>
+    <button id="j_close">close</button>
+    <script>
+        window.onload = function() {
+            var oClose = document.getElementById('j_close');
+            oClose.onclick = function() {
+                // var _this = window.open('', '_self', '');
+
+                // ie6 将 window.opener 设为 '' 或者 null
+                // window.opener = '';
+                window.opener = null;
+                // ie6+ 将 window.open 设为 '' 或者 null
+                window.open('about:abort', '_self', '');
+                window.close();
+                // _this.close();
+            };
+        }
+        // window.onbeforeunload = function(e) {
+        //     e = e || window.event;
+        //     if (e) {
+        //         e.returnValue = '关闭页面';
+        //     }
+        //     return 'onbeforeunload is work';
+        // };
+    </script>
+</body>
+
+</html>

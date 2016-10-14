@@ -1,0 +1,110 @@
+{
+    // 不能有空代码块
+    "disallowEmptyBlocks": true,
+    // 不允许把关键词放在一个新行
+    "disallowKeywordsOnNewLine": ["else", "catch", "finally"],
+    // 允许混合 tab 和 space 排版
+    "disallowMixedSpacesAndTabs": true,
+    // 不允许多个缩进字符(制表符或空格)之间的标识符,比如,关键字
+    "disallowMultipleSpaces": true,
+    // 不允许未赋值的函数命名内联
+    "disallowNamedUnassignedFunctions": true,
+    // 不允许换行符前左花括号的块语句
+    "disallowNewlineBeforeBlockStatements": true,
+    // 不允许''包裹对象的键值
+    "disallowQuotedKeysInObjects": true,
+    // 不允许在对象的键后空格
+    "disallowSpaceAfterObjectKeys": true,
+    // 不允许一元操作符右边空格
+    "disallowSpaceAfterPrefixUnaryOperators": true,
+    // 不允许一元操作符左边空格
+    "disallowSpaceBeforePostfixUnaryOperators": true,
+    // 不允许函数表达式与()间有空格
+    "disallowSpacesInCallExpression": true,
+    // 不允许函数表达式和函数声明中，()前有空格
+    "disallowSpacesInFunction": {
+        "beforeOpeningRoundBrace": true
+    },
+    // 嵌套使用时，不允许[]有空格
+    "disallowSpacesInsideArrayBrackets": true,
+    // 嵌套使用时，不允许()有空格
+    "disallowSpacesInsideBrackets": true,
+    // 嵌套使用时，不允许{}有空格
+    "disallowSpacesInsideObjectBrackets": true,
+    // 使用()时，不允许内部有空格
+    "disallowSpacesInsideParentheses": true,
+    // 不允许字面量对象或者数组中，最后一个元素后有额外的逗号
+    "disallowTrailingComma": true,
+    // 每一行都要以非空字符结束
+    "disallowTrailingWhitespace": true,
+    // 每个代码块的开始和结束都新起一行
+    "requireBlocksOnNewline": true,
+    // 使用 camelCase 命名
+    "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
+    // 构造函数名首字母必须大写
+    "requireCapitalizedConstructors": true,
+    // 允许逗号开头的编码样式
+    "requireCommaBeforeLineBreak": true,
+    // if 和 while 等语句中使用{}来明确代码块
+    "requireCurlyBraces": ["if", "else", "for", "while", "do", "switch", "try", "catch", "finally", "with"],
+    // jQuery 对象前需要加 $
+    "requireDollarBeforejQueryAssignment": false,
+    // 需要将分配一个变量后换行。
+    "requireLineBreakAfterVariableAssignment": true,
+    // 文件结束后换行
+    "requireLineFeedAtFileEnd": true,
+    // 多个 var 声明
+    "requireMultipleVarDecl": false,
+    // 允许不安全的行中断
+    "requireOperatorBeforeLineBreak": true,
+    // var 声明之后的表达式之间需要要有空白换行
+    "requirePaddingNewLineAfterVariableDeclaration": true,
+    // 每个代码块之前需要有换行
+    "requirePaddingNewLinesAfterBlocks": {
+        "allExcept": ["inCallExpressions", "inArrayExpressions", "inProperties"]
+    },
+    // 每个注释之前需要有换行
+    "requirePaddingNewLinesBeforeLineComments": {
+        "allExcept": "firstAfterCurly"
+    },
+    // 所有字面量对象需要在{}内换行，不能写成一行
+    "requirePaddingNewLinesInObjects": true,
+    // 匿名函数需求用()包裹
+    "requireParenthesesAroundIIFE": true,
+    // 需要;结尾
+    "requireSemicolons": true,
+    // 二元操作符与变量间保留一个空格
+    "requireSpaceAfterBinaryOperators": true,
+    // 关键字后保留一个空格
+    "requireSpaceAfterKeywords": ["if", "else", "for", "while", "do", "switch", "case", "try", "catch", "finally", "with", "return", "typeof"],
+    // 单行注释保留一个空格
+    "requireSpaceAfterLineComment": true,
+    // 二元操作符左侧保留一个空格
+    "requireSpaceBeforeBinaryOperators": true,
+    // 块语句之前()需要保留一个空格
+    "requireSpaceBeforeBlockStatements": true,
+    // 关键字之前需要保留一个空格
+    "requireSpaceBeforeKeywords": ["else", "while", "catch", "finally"],
+    // 对象中键之后需要保留一个空格
+    "requireSpaceBeforeObjectValues": true,
+    // 参数分隔符后保留一个空格
+    "requireSpaceBetweenArguments": true,
+    // 条件表达式之间保留一个空格
+    "requireSpacesInConditionalExpression": true,
+    // for 语句中的声明需要用空格隔开
+    "requireSpacesInForStatement": true,
+    // 函数名称之前保留一个空格
+    "requireSpacesInFunction": {
+        "beforeOpeningCurlyBrace": true
+    },
+    // 声明字符串值用于局部的上下文 this
+    "safeContextKeyword": ["_this", "that", "self"],
+    // 4格缩进
+    "validateIndentation": 4,
+    // LF 换行
+    "validateLineBreaks": "LF",
+    // 函数参数立即紧随其后的是一个逗号,然后一个空格
+    "validateParameterSeparator": ", ",
+    // 使用单引号
+    "validateQuoteMarks": "'"
+}

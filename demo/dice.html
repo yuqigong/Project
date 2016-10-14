@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>dice</title>
+    <link rel="stylesheet" href="../lib/css/base/base.css">
+    <link rel="stylesheet" href="../lib/css/module/dice.css">
+</head>
+
+<body>
+    <h1>Style 1 - dice</h1>
+    <div class="space">
+        <div class="dice">
+            <div class="cover one"></div>
+            <div class="cover two"></div>
+            <div class="cover three">
+                <i></i>
+            </div>
+            <div class="cover four">
+                <i></i>
+            </div>
+            <div class="cover five">
+                <i></i>
+            </div>
+            <div class="cover six">
+                <i></i>
+                <i></i>
+            </div>
+        </div>
+    </div>
+    <div class="space">
+        <div class="stage sample">
+            <div class="dice sample">
+                <div class="cover one"></div>
+                <div class="cover two"></div>
+                <div class="cover three">
+                    <i></i>
+                </div>
+                <div class="cover four">
+                    <i></i>
+                </div>
+                <div class="cover five">
+                    <i></i>
+                </div>
+                <div class="cover six">
+                    <i></i>
+                    <i></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1>Style 2 - dice</h1>
+    <div class="space">
+        <div class="sample">
+            <div class="cover one"></div>
+            <div class="cover two"></div>
+            <div class="cover three">
+                <i></i>
+            </div>
+            <div class="cover four">
+                <i></i>
+            </div>
+            <div class="cover five">
+                <i></i>
+            </div>
+            <div class="cover six">
+                <i></i>
+                <i></i>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div id="cube" class="sample show-front animate">
+            <figure class="cover one front"></figure>
+            <figure class="cover two back"></figure>
+            <figure class="cover three right">
+                <i></i>
+            </figure>
+            <figure class="cover four left">
+                <i></i>
+            </figure>
+            <figure class="cover five top">
+                <i></i>
+            </figure>
+            <figure class="cover six bottom">
+                <i></i>
+                <i></i>
+            </figure>
+        </div>
+    </div>
+    <script src="../lib/script/base/Zepto/zepto-1.1.3.js"></script>
+    <script>
+        $(function() {
+            console.log((new Date()).getTime());
+        });
+    </script>
+</body>
+
+</html>

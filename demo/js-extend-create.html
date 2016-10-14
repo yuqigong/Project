@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>js-extend-create</title>
+</head>
+
+<body>
+    <script>
+    // 定义外层基类
+    function Class() {}
+    /**
+     * [extend 用于拓展子类]
+     * 为了能在基类上直接以.extend的方式进行调用
+     * @param  {[type]} props [description]
+     * @return {[type]}       [description]
+     */
+    Class.extend = function _extend(props) {
+
+        var prototype = new this();
+        var _super = this.prototype;
+
+        for (var name in props) {
+            // 如果父类同名属性也是一个函数
+            if (typeof props[name] == "function" && typeof _super[name] == "function") {
+
+                // 重新定义用户的同名函数，把用户的函数包装起来
+                prototype[name] = (function(super_fn, fn) {
+                    return function() {
+
+                        // 如果用户有自定义callSuper的话，暂存起来
+                        var tmp = this.callSuper;
+
+                        // callSuper即指向同名父类函数
+                        this.callSuper = super_fn;
+
+                        // callSuper即存在子类同名函数的上下文中
+                        // 以this.callSuper() 形式调用
+                        var ret = fn.apply(this, arguments);
+
+                        this.callSuper = tmp;
+
+                        // 如果用户没有自定义的callsuper方法，则delete
+                        if (!this.callSuper) {
+                            delete this.callSuper;
+                        }
+
+                        return ret;
+                    }
+                })(_super[name], props[name])
+            } else {
+                // 如果是非同名属性或者方法
+                prototype[name] = props[name];
+            }
+        }
+
+        // 定义内层基类
+        function _Class() {}
+
+        _Class.prototype = prototype;
+        _Class.prototype.constructor = _Class;
+
+        _Class.extend = _extend;
+
+        /**
+         * [create 用于创建实例, 返回的实例实际上就是 new 构造出的实例]
+         *
+         * create 实际上是对 new 的封装
+         * 将 create 置于 prototype 对象中，以便子类继承
+         *
+         * @return {[type]} [description]
+         */
+        _Class.create = _Class.prototype.create = function() {
+
+            // this 即指向调用当前create的构造函数；
+            var instance = new this();
+
+            // 如果对init有定义
+            if (instance.init) {
+                instance.init.apply(instance, arguments);
+            }
+
+            return instance;
+        }
+
+        return _Class;
+    }
+
+    function extend(extension) {
+        var hasOwnProperty = Object.hasOwnProperty;
+        // var object = Object.create(this);
+        var _Class = Class.extend(this);
+        var object = _Class.create();
+
+        for (var property in extension) {
+            if (hasOwnProperty.call(extension, property) || typeof object[property] === "undefined") {
+                object[property] = extension[property];
+            }
+        }
+
+        return object;
+    }
+
+    var Rectangle = {
+        extend: extend,
+        create: function(width, height) {
+            var self = Object.create(this);
+            self.width = width;
+            self.height = height;
+            return self;
+        },
+        area: function() {
+            console.log(this.width * this.height);
+        }
+    };
+
+    var Square = Rectangle.extend({
+        // 重写实例化方法
+        create: function(side) {
+            return Rectangle.create.call(this, side, side);
+        }
+    });
+
+    var s = Square.create(5);
+    s.area();
+    </script>
+</body>
+
+</html>

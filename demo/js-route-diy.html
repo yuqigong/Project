@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <title>js-route-diy</title>
+    <!-- Set wap app icon -->
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png" />
+    <!-- Base style -->
+    <link rel="stylesheet" href="../lib/css/base/base.css" />
+    <link rel="stylesheet" href="../lib/css/base/main.css" />
+    <!-- <link rel="stylesheet" href="../lib/css/module/module.css"/> -->
+</head>
+
+<body>
+    <h1>directory</h1>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#/page1">Page 1</a></li>
+        <li><a href="#/page2">Page 2</a></li>
+    </ul>
+    <h1>content</h1>
+    <div id="view"></div>
+    <script type="text/html" id="home">
+        <h1>Router FTW!</h1>
+    </script>
+    <script type="text/html" id="template1">
+        <h1>Page 1: <%= greeting %></h1>
+        <p>
+            <%= moreText %>
+        </p>
+    </script>
+    <script type="text/html" id="template2">
+        <h1>Page 2: <%= heading %></h1>
+        <p>Lorem ipsum...</p>
+    </script>
+    <script>
+        // Simple JavaScript Templating
+        // John Resig - http://ejohn.org/ - MIT Licensed
+        (function() {
+            var cache = {};
+
+            this.tmpl = function tmpl(str, data) {
+                // Figure out if we're getting a template, or if we need to
+                // load the template - and be sure to cache the result.
+                var fn = !/\W/.test(str) ?
+                    cache[str] = cache[str] ||
+                    tmpl(document.getElementById(str).innerHTML) :
+
+                    // Generate a reusable function that will serve as a template
+                    // generator (and which will be cached).
+                    new Function("obj",
+                        "var p=[],print=function(){p.push.apply(p,arguments);};" +
+
+                        // Introduce the data as local variables using with(){}
+                        "with(obj){p.push('" +
+
+                        // Convert the template into pure JavaScript
+                        str
+                        .replace(/[\r\t\n]/g, " ")
+                        .split("<%").join("\t")
+                        .replace(/((^|%>)[^\t]*)'/g, "$1\r")
+                        .replace(/\t=(.*?)%>/g, "',$1,'")
+                        .split("\t").join("');")
+                        .split("%>").join("p.push('")
+                        .split("\r").join("\\'") + "');}return p.join('');");
+
+                // Provide some basic currying to the user
+                return data ? fn(data) : fn;
+            };
+        })();
+
+        var Router = function() {
+            // A hash to store our routes:
+            var store = {};
+
+            this.getStore = function() {
+                return store;
+            }
+
+            this.setStore = function(path, viewId, templateId, controller) {
+                store[path] = {
+                    viewId: viewId,
+                    templateId: templateId,
+                    controller: controller
+                };
+            }
+        };
+
+        Router.prototype = {
+            routes: function() {
+                return this.getStore();
+            },
+            add: function(path, viewId, templateId, controller) {
+                this.setStore(path, viewId, templateId, controller);
+            },
+            run: function() {
+                var view = null;
+                var routes = this.routes();
+
+                var handler = function() {
+                    // Current route url (getting rid of '#' in hash as well):
+                    var url = location.hash.slice(1) || '/';
+                    // Get route by url:
+                    var route = routes[url];
+                    // Lazy load view element:
+                    view = view || document.getElementById(route.viewId);
+                    // Do we have both a view and a route?
+                    if (view && route.controller) {
+                        // Render route template with John Resig's template engine:
+                        view.innerHTML = tmpl(route.templateId, new route.controller());
+                    }
+                }
+
+                // Listen on hash change:
+                window.addEventListener('hashchange', handler);
+                // Listen on page load:
+                window.addEventListener('load', handler);
+            }
+        };
+
+        var r = new Router();
+
+        r.add('/', 'view', 'home', function() {
+            console.log('page home')
+        });
+        r.add('/page1', 'view', 'template1', function() {
+            this.greeting = 'Hello world!';
+            this.moreText = 'Bacon ipsum...';
+        });
+        r.add('/page2', 'view', 'template2', function(view, route) {
+            this.heading = 'I\'m page two!';
+        });
+
+        r.run();
+    </script>
+    <!-- Base Javascript Lib -->
+    <!-- <script src="../lib/script/base/Zepto/zepto-1.1.3.js"></script> -->
+    <!-- <script src="../lib/script/module/jLight.js"></script> -->
+</body>
+
+</html>

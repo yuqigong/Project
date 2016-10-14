@@ -1,0 +1,102 @@
+// Standard browser: css2.1+
+// Advanced browser: css2.1+ & css3
+// If the support Advanced browser, must will support the Standard browser.
+
+
+// @import "reset.less";
+@import "settings.less";
+
+
+
+// module name: slide
+// support version: IE6+ | Standard browser
+@slide: g-slide;
+@slide_width: 100px;
+
+.@{slide}{
+    position: relative;
+    .@{slide}-wrap{
+        width: @slide_width;
+    }
+    .@{slide}-arrow{
+        position: absolute;
+    }
+    img{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+// module name: autoButton
+// support version: IE6+ | Standard browser
+@autoButton: g-btn-auto;
+@autoButton_width: 100%;
+@autoButton_borderColor: #A93298;
+@autoButton_fontSize: 14px;
+@autoButton_fontColor: #333;
+
+.@{autoButton}{
+    .clearfix;
+    .inline-block{
+        display: inline-block;
+
+        *display: inline;
+        *zoom: 1;
+    }
+    .height{
+        height: 1px;
+    }
+    .content{
+        font-size: @autoButton_fontSize;
+        background: #FFF;
+        border-style: solid;
+        border-color: @autoButton_borderColor;
+        border-width: 0 1px;
+        padding: 5px;
+        color: @autoButton_fontColor;
+        .inline-block;
+    }
+    .bdtop, .bdbottom{
+        background: transparent;
+        font-size: 1px;
+        .inline-block;
+    }
+    .generate-i(@n) when (@n = 1){
+        .generate-i((@n - 1));
+        .i-@{n}{
+            margin: 0 5px;
+            background: @autoButton_borderColor;
+        }
+    }
+    .generate-i(@n) when (@n = 2){
+        .generate-i((@n - 1));
+        .i-@{n}{
+            margin: 0 3px;
+            border-width: 0 2px;
+        }
+    }
+    .generate-i(@n) when (@n = 3){
+        .generate-i((@n - 1));
+        .i-@{n}{
+            margin: 0 2px;
+        }
+    }
+    .generate-i(@n) when (@n = 4){
+        .generate-i((@n - 1));
+        .i-@{n}{
+            height: 2px;
+            margin: 0 1px;
+        }
+    }
+    .generate-i(4);
+}
+
+// test
+// .generate-columns(@n, @i: 1) when (@i =< @n) {
+//   .column-@{i} {
+//     width: (@i * 100% / @n);
+//   }
+//   .generate-columns(@n, (@i + 1));
+// }
+
+// .generate-columns(5);

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>jquery-typewriter</title>
+</head>
+<body>
+	<div id="valentine" data-text='JavaScript 的一个问题是，<br>任何变量，函数或是对象，除非是在某个函数内部定义，否则，就是全局的，意味着同一网页的别的代码可以访问并改写这个变量（ECMA 的 JavaScript 5 已经改变了这一状况 - 译者），使用匿名函数，你可以绕过这一问题。'></div>
+	<script type="text/javascript" src="../lib/script/base/jquery/jquery.js"></script>
+	<script type="text/javascript" src="../lib/script/plugin/jquery.typewriter.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$("#valentine").typewriter({
+            // steady speed of letters typed (not needed if random)
+            // 稳定的字母输入速度(如果随机不需要)
+            typing_speed: "425",
+            // a setTimout delay before typing begins
+            // 输入开始前setTimout延迟
+            delay: 200,
+            // randomize the speed of letters typed
+            // 随机字母输入的速度
+            random: true,
+            // maximum number in milliseconds for random setting (random from 0 to this number)
+            // 最大数量以毫秒为单位随机设置(随机从0到这个数字)
+            randomMax: 100
+        });
+	});
+	</script>
+</body>
+</html>

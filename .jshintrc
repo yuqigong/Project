@@ -1,0 +1,90 @@
+{
+    // ==========================
+    // 增强参数
+    // ==========================
+
+    // curly 表示所有的代码块必须使用大括号
+    "curly": true,
+    // eqeqeq 表示判断相等时，必须使用 ===
+    "eqeqeq": true,
+    // 在for in循环中使用Object.prototype.hasOwnProperty()来过滤原型链中的属性
+    "forin": true,
+    // 禁止复写原生对象(如Array, Date)的原型
+    "freeze": true,
+    // 设置全局变量白名单(true可读写/false仅可读)
+    "globals": {
+        "$": true,
+        "_": true,
+        "define": true,
+        "Lizard": true,
+        "cPublic": true,
+        "grunt": true,
+        "module": true,
+        "exports": true,
+        "window": true,
+        "jQuery": true,
+        "Zepto": true,
+        "global": true,
+        "document": true,
+        "console": true,
+        "setTimeout": true,
+        "setInterval": true
+    },
+    // 变量定义前禁止使用,(变量声明提升)
+    "latedef": true,
+    // JSHint中断扫描前允许的最大错误数
+    // 因为最终我们需要清零JSHint报错的，所以这个值用在对已有项目的扫描中。
+    "maxerr": 200,
+    // 构造函数名首字母必须大写
+    "newcap": true,
+    // 禁止使用构造器
+    "nonew": true,
+    // 禁止出现空的代码块
+    "noempty": true,
+    // 允许变量shadow
+    // 基于“函数作用域”，多次定义变量和单次定义是没有区别的，但是会造成阅读障碍。
+    "shadow": "inner",
+    "singleGroups": true,
+    // undef 表示所有的局部变量都必须先声明再使用
+    "undef": true,
+    // unused 表示禁止变量已经声明，但却不使用
+    "unused": true,
+    // 最大嵌套深度
+    "maxdepth": 5,
+    // 一行中最大字符数
+    // 这个是为了减轻代码阅读的困难，简单说就是不要折行。
+    // "maxlen": 120,
+
+
+    // ==========================
+    // 松弛参数
+    // ==========================
+
+    "boss": true,
+    // 允许使用es6特性
+    "esnext": true,
+    // 允许使用eval
+    "evil": true,
+    // 允许应该出现赋值或函数调用的地方使用表达式
+    "expr": true,
+    // 允许 proto
+    // 不是所有的浏览器都支持__proto__.
+    "proto": true,
+    // 允许使用脚本地址
+    "scripturl": true,
+    // 允许person[‘name’]
+    // JSHint推荐使用person.name代替person[‘name’]
+    "sub": true,
+
+    // ==========================
+    // 环境参数(Enviroments)
+    // ==========================
+
+    "browser": true,
+    "devel": true,
+    "jquery": true,
+    "nonstandard": true,
+    "node": true,
+    "typed": true,
+    "worker": true
+}

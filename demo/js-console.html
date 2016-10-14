@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ie下的console.log</title>
+    <style>
+        body {
+            background: #ffffff;
+            color: #444;
+        }
+        a {
+            color: #08e;
+            text-decoration: none;
+            border: 0;
+            background-color: transparent;
+        }
+        body, div, q, iframe, form, h5 {
+            margin: 0;
+            padding: 0;
+        }
+        a img, fieldset {
+            border: none 0;
+        }
+        body, td, textarea {
+            word-break: break-all;
+            word-wrap: break-word;
+            line-height:1.5;
+        }
+        body, input, textarea, select, button {
+            margin: 0;
+            font-size: 12px;
+            font-family: Tahoma, SimSun, sans-serif;
+        }
+        div, p, table, th, td {
+            font-size:1em;
+            font-family:inherit;
+            line-height:inherit;
+        }
+    </style>
+    <script type="text/javascript">
+        var debug = true;
+        var $id = function(id) { //避免与jQuery的$函数冲突
+            return typeof id == "string" ? document.getElementById(id) : id;
+        };
+        if (!$) {
+            var $ = $id;
+        }
+        if (!window.console) {
+            window.console = {}
+            window.console.cache = [];
+            window.console.constr = function(_value) {
+                if (!_value) return;
+                var result = [];
+                if (_value instanceof Function) {
+                    result.push(_value);
+                } else if (_value != undefined && Boolean(_value.nodeName) && Boolean(_value.nodeType)) {
+                    result.push(_value.nodeName.toLowerCase());
+                    result.push(_value.getAttribute("id") ? "id=" + _value.getAttribute("id") : "");
+                    result.push(_value.getAttribute("className") ? "class=" + _value.getAttribute("className") : "");
+                    return "&lt;" + result.join(" ") + "&gt;";
+                } else if (_value instanceof Array) {
+                    for (var i = 0; i < _value.length; i++) {
+                        if (typeof _value[i] == 'string')
+                            result.push("\"" + _value[i] + "\"");
+                        else
+                            result.push(_value[i]);
+                    }
+                    return "[" + result.join(", ") + "]";
+                } else if (typeof _value == "object") {
+                    for (var p in _value) {
+                        if (_value.hasOwnProperty(p) && p != 'prototype') {
+                            result.push("'" + p + "':" + _value[p]);
+                        }
+                    };
+                    return "{" + result.join(", ") + "}";
+                } else if (typeof _value == 'string') {
+                    return "\"" + _value + "\"";
+                } else if (typeof _value == 'number' && isFinite(_value)) {
+                    result.push(_value);
+                } else {
+                    result.push(_value);
+                }
+                return result.join("");
+            }
+            window.console.log = function(outputValue) {
+                if (!debug) return;
+                if (!outputValue) return null;
+                var bgColor = bgColor || "#fff";
+                consoleDiv = $id("_console");
+                if (!consoleDiv) {
+                    consoleDiv = document.createElement("div");
+                    consoleDiv.id = "_console";
+                    consoleDiv.style.cssText = "position:absolute; z-index:9999; left:0%;top:" + Math.max(document.documentElement.scrollTop, document.body.scrollTop) + "px; width:62%; background-color:#fff; border:1px solid #359; opacity:0.9; filter:alpha(opacity=90); padding:4px;"
+                    consoleDiv.innerHTML = '<div id="_consoleHead" style="background-color:#cde; height:20px; color:#000; font-size:12px; line-height:20px; cursor:move;"><a style="color:#123; float:right; text-decoration:none; margin:1px 2px 0;" href="javascript:$id(\'_console\').style.display=\'none\';void(0);">[关闭]</a><a style="color:#123; float:right; text-decoration:none; margin:1px 2px 0;" href="javascript:$id(\'_consoleBody\').innerHTML=\'\';void(0);">[清空]</a></div>';
+
+                    consoleDivBody = document.createElement("div");
+                    consoleDivBody.id = "_consoleBody";
+                    consoleDivBody.style.cssText = "font-size:12px; line-height:1.5;color:#333; width:100%; max-height:150px; overflow:auto;"
+                    consoleDivBody.innerHTML = '';
+
+                    consoleDiv.appendChild(consoleDivBody);
+                    document.getElementsByTagName("BODY")[0].appendChild(consoleDiv);
+                    if (Drag)
+                        Drag.init($id("_consoleHead"), consoleDiv); //注册拖拽方法，可以使用自己的拖拽方法来代替，以减少代码量
+                }
+                consoleDiv.style.display = "";
+                var consoleDivTop = consoleDiv.style.top.replace(/\D/gi, "");
+                if (consoleDivTop < Math.max(document.documentElement.scrollTop, document.body.scrollTop) || consoleDivTop > Math.max(document.documentElement.scrollTop, document.body.scrollTop) + (document.compatMode == "BackCompat" ? document.body.clientHeight : document.documentElement.clientHeight))
+                    consoleDiv.style.top = Math.max(document.documentElement.scrollTop, document.body.scrollTop) + "px";
+                var newItem = document.createElement("div");
+                newItem.style.cssText = "border-top:1px solid #cde; padding:3px;font-family:'Courier New'; font-size:13px; background-color:" + bgColor;
+                var content = [];
+                for (var i = 0, len = arguments.length; i < len; i++) {
+                    content.push(window.console.constr(arguments[i]));
+                }
+                newItem.innerHTML = content.join(" ");
+                $id("_consoleBody").appendChild(newItem);
+                $id("_consoleBody").scrollTop = 9999;
+            };
+        }
+        /***小巧的拖拽类***/
+        var Drag = {
+            "obj": null,
+            "init": function(handle, dragBody, e) {
+                if (e == null) {
+                    handle.onmousedown = Drag.start;
+                }
+                handle.root = dragBody;
+
+                if (isNaN(parseInt(handle.root.style.left))) handle.root.style.left = "0px";
+                if (isNaN(parseInt(handle.root.style.top))) handle.root.style.top = "0px";
+                handle.root.onDragStart = new Function();
+                handle.root.onDragEnd = new Function();
+                handle.root.onDrag = new Function();
+                if (e != null) {
+                    var handle = Drag.obj = handle;
+                    e = Drag.fixe(e);
+                    var top = parseInt(handle.root.style.top);
+                    var left = parseInt(handle.root.style.left);
+                    handle.root.onDragStart(left, top, e.pageX, e.pageY);
+                    handle.lastMouseX = e.pageX;
+                    handle.lastMouseY = e.pageY;
+                    document.onmousemove = Drag.drag;
+                    document.onmouseup = Drag.end;
+                }
+            },
+            "start": function(e) {
+                var handle = Drag.obj = this;
+                e = Drag.fixEvent(e);
+                var top = parseInt(handle.root.style.top);
+                var left = parseInt(handle.root.style.left);
+                //alert(left)
+                handle.root.onDragStart(left, top, e.pageX, e.pageY);
+                handle.lastMouseX = e.pageX;
+                handle.lastMouseY = e.pageY;
+                document.onmousemove = Drag.drag;
+                document.onmouseup = Drag.end;
+                return false;
+            },
+            "drag": function(e) {
+                e = Drag.fixEvent(e);
+
+                var handle = Drag.obj;
+                var mouseY = e.pageY;
+                var mouseX = e.pageX;
+                var top = parseInt(handle.root.style.top);
+                var left = parseInt(handle.root.style.left);
+
+                if (document.all) {
+                    Drag.obj.setCapture();
+                } else {
+                    e.preventDefault();
+                }; //作用是将所有鼠标事件捕获到handle对象，对于firefox，以用preventDefault来取消事件的默认动作：
+
+                var currentLeft, currentTop;
+                currentLeft = left + mouseX - handle.lastMouseX;
+                currentTop = top + (mouseY - handle.lastMouseY);
+                handle.root.style.left = currentLeft + "px";
+                handle.root.style.top = currentTop + "px";
+                handle.lastMouseX = mouseX;
+                handle.lastMouseY = mouseY;
+                handle.root.onDrag(currentLeft, currentTop, e.pageX, e.pageY);
+                return false;
+            },
+            "end": function() {
+                if (document.all) {
+                    Drag.obj.releaseCapture();
+                }; //取消所有鼠标事件捕获到handle对象
+                document.onmousemove = null;
+                document.onmouseup = null;
+                Drag.obj.root.onDragEnd(parseInt(Drag.obj.root.style.left), parseInt(Drag.obj.root.style.top));
+                Drag.obj = null;
+            },
+            "fixEvent": function(e) { //格式化事件参数对象
+                var sl = Math.max(document.documentElement.scrollLeft, document.body.scrollLeft);
+                var st = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
+                if (typeof e == "undefined") e = window.event;
+                if (typeof e.layerX == "undefined") e.layerX = e.offsetX;
+                if (typeof e.layerY == "undefined") e.layerY = e.offsetY;
+                if (typeof e.pageX == "undefined") e.pageX = e.clientX + sl - document.body.clientLeft;
+                if (typeof e.pageY == "undefined") e.pageY = e.clientY + st - document.body.clientTop;
+                return e;
+            }
+        };
+
+        /***测试***/
+
+        function sometext(ele, n) {
+            var strArr = ["可", "以", "清", "心", "也"];
+            var writeStr = "";
+            for (i = 0; i < n; i++) {
+                index = parseInt(Math.random() * 5);
+                for (j = 0; j < 5; j++) {
+                    str = index + j > 4 ? index + j - 5 : index + j;
+                    writeStr += strArr[str];
+                }
+            }
+            $(ele).innerHTML = writeStr;
+        }
+
+        function test1() {
+            console.log("这是一个js对象:", {
+                w: 100,
+                h: 50,
+                area: function() {
+                    return this.w * this.h
+                }
+            })
+        }
+
+        function test2() {
+            console.log("这是一个dom对象:", $id("div1"))
+        }
+
+        function test3() {
+            var arr = function(w, h) {
+                return w * h;
+            }
+            console.log("这是一个js函数:", arr)
+        }
+
+        function test4() {
+            var arr = [1, 2.2, "a", "abc", true, false, new Date(), /<[^>]*>/,
+                function() {
+                    alert(0);
+                }
+            ]
+            console.log("这是一个数组:", arr)
+        }
+    </script>
+</head>
+
+<body>
+    <div id="div1" class="style1"></div>
+    <p>
+        <input type="button" value="返回一个object" onclick="test1()" />
+        <input type="button" value="返回一个element" onclick="test2()" />
+        <input type="button" value="返回一个function" onclick="test3()" />
+        <input type="button" value="返回一个arrary" onclick="test4()" />
+    </p>
+    <div id="div2" class="style1"></div>
+    <script>
+        sometext("div1", 5);
+        sometext("div2", 5);
+    </script>
+</body>
+
+</html>

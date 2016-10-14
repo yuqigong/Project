@@ -1,0 +1,28 @@
+.grid {}
+
+.grid ul {
+    width: 100%;
+    display: table;
+    text-align: center;
+}
+
+.grid li {
+    display: table-row;
+}
+
+.grid span {
+    width: 25%;
+    display: table-cell;
+    border: 1px solid #E5E5E6;
+	border-bottom: none;
+    padding: 1em;
+}
+
+.grid span:nth-child(2n) {
+	border-right: none;
+	border-left: none;
+}
+
+.grid li:last-child span{
+	border-bottom: 1px solid #E5E5E6;
+}

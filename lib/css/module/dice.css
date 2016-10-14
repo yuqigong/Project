@@ -1,0 +1,458 @@
+h1 {
+    line-height: 3;
+    text-indent: 10px;
+    font-size: 18px;
+}
+/*
+    Other Module Style
+    space
+    stage
+-------------------------------------------------------------------------*/
+ .space {
+    width: 100%;
+    height: 200px;
+}
+.stage {
+    -webkit-perspective: 1000px;
+    -moz-perspective: 1000px;
+    -ms-perspective: 1000px;
+    -o-perspective: 1000px;
+    perspective: 1000px;
+    position: relative;
+    margin: 0 auto;
+}
+/*
+    Description:    A dependent relationship
+    HTML Structure:
+                    <div class="dice">
+                        <div class="cover one"></div>
+                        <div class="cover two"></div>
+                        <div class="cover three">
+                            <i></i>
+                        </div>
+                        <div class="cover four">
+                            <i></i>
+                        </div>
+                        <div class="cover five">
+                            <i></i>
+                        </div>
+                        <div class="cover six">
+                            <i></i>
+                            <i></i>
+                        </div>
+                    </div>
+-------------------------------------------------------------------------*/
+ .dice {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+.dice .cover {
+    position: absolute;
+    top:0px;
+    left: 0px;
+    width: 48px;
+    height: 48px;
+    background-color: #fff;
+    border: 1px solid rgb(255, 255, 255);
+    box-shadow: inset 1px 1px 1px 1px #B6B6B6;
+    border-radius: 10px;
+}
+.dice .cover i {
+    margin: -5px;
+}
+.dice .cover.one {
+    left: 0px;
+}
+.dice .cover.two {
+    left: 60px;
+}
+.dice .cover.three {
+    left: 120px;
+}
+.dice .cover.four {
+    left: 180px;
+}
+.dice .cover.five {
+    left: 240px;
+}
+.dice .cover.six {
+    left: 300px;
+}
+.dice .cover i, .dice .cover.one:after, .dice .cover.two:after, .dice .cover.two:before, .dice .cover.three:after, .dice .cover.three:before, .dice .cover.four:after, .dice .cover.four:before, .dice .cover.four i:after, .dice .cover.four i:before, .dice .cover.five:after, .dice .cover.five:before, .dice .cover.five i:after, .dice .cover.five i:before, .dice .cover.six:after, .dice .cover.six:before, .dice .cover.six i:first-child:after, .dice .cover.six i:first-child:before, .dice .cover.six i:last-child:after, .dice .cover.six i:last-child:before {
+    content:" ";
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: #000;
+    border-radius: 10px;
+    position: absolute;
+    top:50%;
+    left: 50%;
+}
+/*
+    Sets the position of each point
+*/
+ .dice .cover.four i:after, .dice .cover.five i:after, .dice .cover.six i:first-child:after {
+    margin: 8px 0 0 8px;
+}
+.dice .cover.four i:before, .dice .cover.five i:before, .dice .cover.six i:first-child:before {
+    margin: -18px 0 0 -18px;
+}
+.dice .cover.three:after, .dice .cover.four:after, .dice .cover.five:after, .dice .cover.six:after {
+    margin: 8px 0 0 -18px;
+}
+.dice .cover.three:before, .dice .cover.four:before, .dice .cover.five:before, .dice .cover.six:before {
+    margin: -18px 0 0 8px;
+}
+/*
+    the size of the set point
+*/
+ .dice .cover.one:after {
+    height: 20px;
+    width: 20px;
+    margin: -10px 0 0 -10px;
+}
+.dice .cover.two:after {
+    margin: 5px 0 0 -5px;
+}
+.dice .cover.two:before {
+    margin: -13px 0 0 -5px;
+}
+.dice .cover.six i:last-child:after {
+    margin: -5px 0 0 8px;
+}
+.dice .cover.six i:last-child:before {
+    margin: -5px 0 0 -18px;
+}
+/*
+    set four and six conter point color with white
+*/
+ .dice .cover.four i, .dice .cover.six i {
+    background-color: white;
+}
+/*
+    set one and four point color with red
+*/
+ .dice .cover.one:after, .dice .cover.four:after, .dice .cover.four:before, .dice .cover.four i:after, .dice .cover.four i:before {
+    background-color: red;
+}
+/*
+    An Example
+-------------------------------------------------------------------------*/
+ .stage.sample {
+    width: 50px;
+    height: 50px;
+}
+.dice.sample {
+    -webkit-transform-style: preserve-3d;
+    -webkit-transform-origin: 50% 50% 25px;
+    -webkit-backface-visibility: visible;
+}
+.dice.sample .cover {
+    width: 100% !important;
+    height: 100% !important;
+}
+.dice.sample .cover.one {
+    top:50px;
+    left: 50px;
+}
+.dice.sample .cover.two {
+    top: 50px;
+    left: 50px;
+    -webkit-transform-origin: right;
+    -webkit-transform: rotateY(90deg);
+}
+.dice.sample .cover.three {
+    top: 100px;
+    left: 50px;
+    -webkit-transform-origin: top;
+    -webkit-transform: rotateX(90deg);
+}
+.dice.sample .cover.four {
+    top: 0px;
+    left: 50px;
+    -webkit-transform-origin: bottom;
+    -webkit-transform: rotateX(-90deg);
+}
+.dice.sample .cover.five {
+    top: 50px;
+    left: 0px;
+    -webkit-transform-origin: right;
+    -webkit-transform: rotateY(90deg);
+}
+.dice.sample .cover.six {
+    top: 50px;
+    left: 50px;
+    -webkit-transform: translateZ(50px);
+}
+/*
+    Description:    No dependencies
+    HTML Structure:
+                    <div class="sample">
+                        <div class="cover one"></div>
+                        <div class="cover two"></div>
+                        <div class="cover three">
+                            <i></i>
+                        </div>
+                        <div class="cover four">
+                            <i></i>
+                        </div>
+                        <div class="cover five">
+                            <i></i>
+                        </div>
+                        <div class="cover six">
+                            <i></i>
+                            <i></i>
+                        </div>
+                    </div>
+-------------------------------------------------------------------------*/
+ .sample {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+.sample .cover {
+    position: absolute;
+    /*top:0px;
+    left: 0px;*/
+    width: 48px;
+    height: 48px;
+    background-color: #fff;
+    border: 1px solid rgb(255, 255, 255);
+    box-shadow: inset 0px 0px 10px -1px #B6B6B6;
+    /*border-radius: 10px;*/
+}
+.cover i {
+    margin: -5px;
+}
+.cover i, .cover.one:after, .cover.two:after, .cover.two:before, .cover.three:after, .cover.three:before, .cover.four:after, .cover.four:before, .cover.four i:after, .cover.four i:before, .cover.five:after, .cover.five:before, .cover.five i:after, .cover.five i:before, .cover.six:after, .cover.six:before, .cover.six i:first-child:after, .cover.six i:first-child:before, .cover.six i:last-child:after, .cover.six i:last-child:before {
+    content:" ";
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: #000;
+    border-radius: 10px;
+    position: absolute;
+    top:50%;
+    left: 50%;
+}
+/*
+    Sets the position of each point
+*/
+ .cover.four i:after, .cover.five i:after, .cover.six i:first-child:after {
+    margin: 8px 0 0 8px;
+}
+.cover.four i:before, .cover.five i:before, .cover.six i:first-child:before {
+    margin: -18px 0 0 -18px;
+}
+.cover.three:after, .cover.four:after, .cover.five:after, .cover.six:after {
+    margin: 8px 0 0 -18px;
+}
+.cover.three:before, .cover.four:before, .cover.five:before, .cover.six:before {
+    margin: -18px 0 0 8px;
+}
+/*
+    the size of the set point
+*/
+ .cover.one:after {
+    height: 20px;
+    width: 20px;
+    margin: -10px 0 0 -10px;
+}
+.cover.two:after {
+    margin: 5px 0 0 -5px;
+}
+.cover.two:before {
+    margin: -13px 0 0 -5px;
+}
+.cover.six i:last-child:after {
+    margin: -5px 0 0 8px;
+}
+.cover.six i:last-child:before {
+    margin: -5px 0 0 -18px;
+}
+/*
+    set four and six conter point color with white
+*/
+ .cover.four i, .cover.six i {
+    background-color: white;
+}
+/*
+    set one and four point color with red
+*/
+ .cover.one:after, .cover.four:after, .cover.four:before, .cover.four i:after, .cover.four i:before {
+    background-color: red;
+}
+/*
+    An Example
+-------------------------------------------------------------------------*/
+ .container {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    margin: 0 auto 40px;
+    -webkit-perspective: 1000px;
+    -moz-perspective: 1000px;
+    -o-perspective: 1000px;
+    perspective: 1000px;
+}
+#cube {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: -webkit-transform 1s;
+    -moz-transition: -moz-transform 1s;
+    -o-transition: -o-transform 1s;
+    transition: transform 1s;
+}
+#cube figure {
+    display: block;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+#cube.panels-backface-invisible figure {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+#cube .front {
+    -webkit-transform: translateZ(25px);
+    -moz-transform: translateZ(25px);
+    -o-transform: translateZ(25px);
+    transform: translateZ(25px);
+}
+#cube .back {
+    -webkit-transform: rotateX(-180deg) translateZ(25px);
+    -moz-transform: rotateX(-180deg) translateZ(25px);
+    -o-transform: rotateX(-180deg) translateZ(25px);
+    transform: rotateX(-180deg) translateZ(25px);
+}
+#cube .right {
+    -webkit-transform: rotateY(90deg) translateZ(25px);
+    -moz-transform: rotateY(90deg) translateZ(25px);
+    -o-transform: rotateY(90deg) translateZ(25px);
+    transform: rotateY(90deg) translateZ(25px);
+}
+#cube .left {
+    -webkit-transform: rotateY(-90deg) translateZ(25px);
+    -moz-transform: rotateY(-90deg) translateZ(25px);
+    -o-transform: rotateY(-90deg) translateZ(25px);
+    transform: rotateY(-90deg) translateZ(25px);
+}
+#cube .top {
+    -webkit-transform: rotateX(90deg) translateZ(25px);
+    -moz-transform: rotateX(90deg) translateZ(25px);
+    -o-transform: rotateX(90deg) translateZ(25px);
+    transform: rotateX(90deg) translateZ(25px);
+}
+#cube .bottom {
+    -webkit-transform: rotateX(-90deg) translateZ(25px);
+    -moz-transform: rotateX(-90deg) translateZ(25px);
+    -o-transform: rotateX(-90deg) translateZ(25px);
+    transform: rotateX(-90deg) translateZ(25px);
+}
+#cube.show-front {
+    -webkit-transform: translateZ(-25px);
+    -moz-transform: translateZ(-25px);
+    -o-transform: translateZ(-25px);
+    transform: translateZ(-25px);
+}
+#cube.show-back {
+    -webkit-transform: translateZ(-25px) rotateX(-180deg);
+    -moz-transform: translateZ(-25px) rotateX(-180deg);
+    -o-transform: translateZ(-25px) rotateX(-180deg);
+    transform: translateZ(-25px) rotateX(-180deg);
+}
+#cube.show-right {
+    -webkit-transform: translateZ(-25px) rotateY(-90deg);
+    -moz-transform: translateZ(-25px) rotateY(-90deg);
+    -o-transform: translateZ(-25px) rotateY(-90deg);
+    transform: translateZ(-25px) rotateY(-90deg);
+}
+#cube.show-left {
+    -webkit-transform: translateZ(-25px) rotateY(90deg);
+    -moz-transform: translateZ(-25px) rotateY(90deg);
+    -o-transform: translateZ(-25px) rotateY(90deg);
+    transform: translateZ(-25px) rotateY(90deg);
+}
+#cube.show-top {
+    -webkit-transform: translateZ(-25px) rotateX(-90deg);
+    -moz-transform: translateZ(-25px) rotateX(-90deg);
+    -o-transform: translateZ(-25px) rotateX(-90deg);
+    transform: translateZ(-25px) rotateX(-90deg);
+}
+#cube.show-bottom {
+    -webkit-transform: translateZ(-25px) rotateX(90deg);
+    -moz-transform: translateZ(-25px) rotateX(90deg);
+    -o-transform: translateZ(-25px) rotateX(90deg);
+    transform: translateZ(-25px) rotateX(90deg);
+}
+.animate {
+    -webkit-animation : spinningH 300ms infinite linear;
+    -moz-animation : spinningH 300ms infinite linear;
+    -o-animation : spinningH 300ms infinite linear;
+    -ms-animation : spinningH 300ms infinite linear;
+    animation : spinningH 300ms infinite linear;
+}
+@-moz-keyframes spinningH {
+    from {
+        -moz-transform: rotateX(0deg) rotateY(0deg);
+    }
+    to {
+        -moz-transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+@-webkit-keyframes spinningH {
+    from {
+        -webkit-transform: rotateX(0deg) rotateY(0deg);
+    }
+    to {
+        -webkit-transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+@-o-keyframes spinningH {
+    from {
+        -o-transform: rotateX(0deg) rotateY(0deg);
+    }
+    to {
+        -o-transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+@-ms-keyframes spinningH {
+    from {
+        -ms-transform: rotateX(0deg) rotateY(0deg);
+    }
+    to {
+        -ms-transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+@keyframes spinningH {
+    from {
+        transform: rotateX(0deg) rotateY(0deg);
+    }
+    to {
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    .outer {
+        margin:100px auto;
+    }
+    .outer div {
+        height:300px;
+    }
+    .left {
+        float:left;
+        width:100px;
+        margin-right:10px;
+        _display:inline;
+        background:red;
+    }
+    .main {
+        display:table-cell;
+        width:2000px;
+        *display:block;
+        *width:auto;
+        *overflow:hidden;
+        zoom:1;
+        background:blue;
+    }
+    .right {
+        float:right;
+        width:100px;
+        margin-left:10px;
+        _display:inline;
+        background:green;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="outer">
+        <div class="left">左侧</div>
+        <div class="right">右侧</div>
+        <div class="main">中间自适应</div>
+    </div>
+</body>
+
+</html>

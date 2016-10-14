@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <title>Backbone-HelloWorld</title>
+    <!-- Set wap app icon -->
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="touch-icon-ipad.png"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.png"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png"/>
+
+    <!-- Base style -->
+    <link rel="stylesheet" href="../lib/css/base/base.css"/>
+    <link rel="stylesheet" href="../lib/css/base/main.css"/>
+    <!-- <link rel="stylesheet" href="../lib/css/module/module.css"/> -->
+</head>
+
+<body>
+<!-- Base Javascript Lib -->
+<script src="../lib/script/base/jquery/jquery.js"></script>
+<script src="../lib/script/base/underscore/underscore.js"></script>
+<script src="../lib/script/base/backbone/backbone.1.2.3.js"></script>
+<script>
+    (function ($) {
+        'use strict';
+
+        var CustomRouter = Backbone.Router.extend({
+            routes: {
+                '': 'index', // 当URL Hash在根目录时执行index方法：url#
+                'list': 'getList', // 当URL Hash在list节点时执行getList方法：url#list
+                'detail/:id': 'query', // 当URL Hash在detail节点时执行query方法，并将detail后的数据作为参数传递给query方法：url#list/1001
+                '*error': 'showError' // 当URL Hash不匹配以上规则时, 执行error方法
+            },
+            index: function () {
+                alert('index');
+            },
+            getList: function () {
+                alert('getList');
+            },
+            query: function (id) {
+                alert('query id: ' + id);
+            },
+            showError: function (error) {
+                alert('error hash: ' + error);
+            }
+        });
+
+        var custom = new CustomRouter();
+        Backbone.history.start();
+    })(jQuery);
+</script>
+</body>
+
+</html>

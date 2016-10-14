@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jquery-delegate</title>
+    <script src="../lib/script/base/jquery/jquery.js"></script>
+</head>
+
+<body>
+    <h1>测试 delegate</h1>
+    <ul id="j_ul"></ul>
+    <script>
+        $(function() {
+            var str = '';
+            for (var i = 0; i < 10; i++) {
+                str += '<li>' + i + '</li>';
+            }
+            $('#j_ul').html(str);
+            $('#j_ul').delegate('li', 'click', function() {
+                var val = $(this).html();
+                alert(val);
+            });
+        });
+    </script>
+</body>
+
+</html>

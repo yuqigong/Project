@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0
+    }
+    body{
+    	text-align: center;
+    }
+    span,i,b,em {
+        display: inline-block;
+        font-size: 0;
+        /*filter: chroma(color=black);*/
+    }
+    .dv-inline {
+        display: inline-block;
+        font-size: 0;
+        *display: inline;
+        *zoom: 1;
+        /*filter: chroma(color=black);*/
+    }
+    .dv-inline.triangle-up {
+        border-bottom: 100px solid blue;
+    }
+    .triangle{
+        width: 0;
+        height: 0;    	
+        font-size: 0;
+        border-color: black;
+        filter: chroma(color=black);
+    }
+    .triangle.up {
+        border-left: 50px solid transparent;
+        border-right: 50px solid transparent;
+        border-bottom: 100px solid red;
+    }
+    .triangle.down {
+        border-left: 50px solid transparent;
+        border-right: 50px solid transparent;
+        border-top: 100px solid red;
+    }
+    .triangle.left {
+        border-top: 50px solid transparent;
+        border-right: 100px solid red;
+        border-bottom: 50px solid transparent;
+    }
+    .triangle.right {
+        border-top: 50px solid transparent;
+        border-left: 100px solid red;
+        border-bottom: 50px solid transparent;
+    }
+    .triangle.topleft {
+        border-top: 100px solid red;
+        border-right: 100px solid transparent;
+    }
+    .triangle.topright {
+        border-top: 100px solid red;
+        border-left: 100px solid transparent;
+    }
+    .triangle.bottomleft {
+        border-bottom: 100px solid red;
+        border-right: 100px solid transparent;
+    }
+    .triangle.bottomright {
+        border-bottom: 100px solid red;
+        border-left: 100px solid transparent;
+    }
+    ul li {
+        margin: 20px 0;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="dv-inline triangle up"></div>
+    <div class="dv-inline triangle up"></div>
+    <div class="dv-inline triangle down"></div>
+    <ul>
+        <li>
+            <span class="triangle up"></span>
+            <i class="triangle up"></i>
+            <b class="triangle up"></b>
+            <em class="triangle up"></em>
+        </li>
+        <li>
+            <span class="triangle down"></span>
+        </li>
+        <li>
+            <span class="triangle left"></span>
+        </li>
+        <li>
+            <span class="triangle right"></span>
+        </li>
+        <li>
+            <span class="triangle topleft"></span>
+        </li>
+        <li>
+            <span class="triangle topright"></span>
+        </li>
+        <li>
+            <span class="triangle bottomleft"></span>
+        </li>
+        <li>
+            <span class="triangle bottomright"></span>
+        </li>
+    </ul>
+</body>
+
+</html>

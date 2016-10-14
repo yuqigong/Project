@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS日期控件</title>
+    <style type="text/css">
+    #start {
+        position: relative;
+        width: 100px;
+        height: 30px;
+        border: 1px solid #b7b7b7;
+    }
+
+    .Calendar {
+        position: absolute;
+        top: 31px;
+        left: -1px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="start"></div>
+    <div id="end"></div>
+    <script type="text/javascript" src="../lib/script/module/calendar.js"></script>
+    <script type="text/javascript" src="../lib/script/module/datepicker.js"></script>
+    <script>
+    // var start = Calendar.getInstance({
+    //     id: 'start'
+    // });
+
+    // var end = Calendar.getInstance({
+    //     id: 'end'
+    // });
+
+
+    // var cal = Calendar.getInstance({
+    //     id: 'start',
+    //     onSelect: function(evt, elem) {
+
+    //         if (evt.target && evt.target.nodeName.toUpperCase() === 'TD') {
+
+    //             var TDs = elem.getElementsByTagName('td'),
+    //                 day = +evt.target.innerHTML;
+
+    //             for (var i = 0; i < TDs.length; i++) {
+    //                 var d1 = new Date(this.cYear, this.cMonth - 1, TDs.item(i).innerHTML),
+    //                     d2 = new Date();
+
+    //                 if (this.isSame(d1, d2)) {
+    //                     TDs.item(i).className = 'onToday';
+    //                 } else {
+    //                     TDs.item(i).className = '';
+    //                 }
+    //             }
+
+    //             // 获取今日
+    //             if (this.isSame(new Date(this.cYear, this.cMonth - 1, day), new Date())) {
+    //                 evt.target.className = 'onToday onSelect';
+    //             } else {
+    //                 evt.target.className = 'onSelect';
+    //             }
+
+    //             this.selectDay = day;
+    //             this.selectWeek = this.getDay(day);
+
+    //         }
+
+    //         return false;
+    //     }
+    // });
+
+    var dpker = Datepicker.getInstance({
+        id: 'start',
+        format: 'yyyy-mm-dd'
+    });
+
+    // dpker.play([{
+    //     elem: 'start',
+    //     format: 'YYYY/MM/DD',
+    //     min: new Date(), //设定最小日期为当前日期
+    //     max: new Date('2099-06-16'), //最大日期
+    //     istoday: false,
+    //     range: function(datas) {
+    //         end.min = datas; //开始日选好后，重置结束日的最小日期
+    //         end.start = datas //将结束日的初始值设定为开始日
+    //     }
+    // }, {
+    //     elem: 'end',
+    //     format: 'YYYY/MM/DD',
+    //     min: new Date(), //设定最小日期为当前日期
+    //     max: new Date('2099-06-16'), //最大日期
+    //     istoday: false,
+    //     range: function(datas) {
+    //         end.min = datas; //开始日选好后，重置结束日的最小日期
+    //         end.start = datas //将结束日的初始值设定为开始日
+    //     }
+    // }]);
+
+    // dpker.play([{
+    //     elem: 'start',
+    //     format: 'YYYY/MM/DD',
+    //     min: new Date(), //设定最小日期为当前日期
+    //     max: new Date('2099-06-16'), //最大日期
+    //     istoday: false,
+    //     range: function(datas) {
+    //         end.min = datas; //开始日选好后，重置结束日的最小日期
+    //         end.start = datas //将结束日的初始值设定为开始日
+    //     }
+    // }]);
+    </script>
+</body>
+
+</html>

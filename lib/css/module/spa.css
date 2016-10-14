@@ -1,0 +1,163 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    transition: all 1s ease-in-out;
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden
+}
+
+.view {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center
+}
+
+
+/**
+ *
+ * <div class="q-loading">
+ *     页面加载中<span class="dotting"></span>
+ * </div>
+ *
+ */
+
+.spa-loading {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 1;
+    width: 50%;
+    height: 10%;
+    text-align: center
+}
+
+.dotting {
+    display: inline-block;
+    min-width: 2px;
+    min-height: 2px;
+    box-shadow: 2px 0 currentColor, 6px 0 currentColor, 10px 0 currentColor;
+    -webkit-animation: dot 4s infinite step-start both;
+    animation: dot 4s infinite step-start both;
+    *zoom: expression(this.innerHTML='...')
+}
+
+.dotting:before {
+    content: '...'
+}
+
+.dotting::before {
+    content: ''
+}
+
+:root .dotting {
+    margin-right: 8px
+}
+
+@-webkit-keyframes dot {
+    25% {
+        box-shadow: none
+    }
+    50% {
+        box-shadow: 2px 0 currentColor
+    }
+    75% {
+        box-shadow: 2px 0 currentColor, 6px 0 currentColor
+    }
+}
+
+@keyframes dot {
+    25% {
+        box-shadow: none
+    }
+    50% {
+        box-shadow: 2px 0 currentColor
+    }
+    75% {
+        box-shadow: 2px 0 currentColor, 6px 0 currentColor
+    }
+}
+
+
+/**
+ *
+ * <div class="spa-downward">
+ *     <img src="./img/index_arrow.png" class="spa-downward-arrow spa-downward-animation">
+ * </div>
+ *
+ */
+
+.spa-downward {
+    background: rgba(28, 28, 28, 0.6);
+    width: 70px;
+    height: 70px;
+    z-index: 3;
+    -webkit-transform-origin: bottom;
+    overflow: hidden;
+    border-radius: 35px;
+    margin-bottom: -7%;
+    text-align: center;
+}
+
+.spa-downward-arrow {
+    width: 10px;
+    height: 10px;
+    border: 1px solid #fff;
+    transform: rotate(45deg) translate3d(-5px, -5px, 0);
+    border-left: none;
+    border-top: none;
+    position: absolute;
+    top: -30px;
+}
+
+.spa-downward-arrow:after {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    border: 1px solid #fff;
+    transform: rotate(0deg) translate3d(-5px, -5px, 0);
+    border-left: none;
+    border-top: none;
+    top: 0;
+    left: 0;
+}
+
+.spa-downward-animation {
+    animation: downward 2s ease infinite;
+}
+
+@-webkit-keyframes downward {
+    0%,
+    100% {
+        transform: rotate(45deg) translate3d(0, 0, 0);
+        opacity: 1;
+    }
+    50% {
+        transform: rotate(45deg) translate3d(7px, 7px, 0);
+        opacity: .2;
+    }
+}
+
+.hide {
+    visibility: hidden
+}
+
+.show {
+    visibility: visible
+}

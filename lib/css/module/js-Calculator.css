@@ -1,0 +1,49 @@
+body {
+    min-width: 320px;
+    overflow: hidden;
+}
+.box {
+    width: 310px;
+    border: 5px solid #000;
+    background-color: #000;
+}
+.box-view {
+    height: 152px;
+    color: #fff;
+    text-align: right;
+    position: relative;
+}
+.box-view em {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+}
+.box-input {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+.box-input table {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    line-height: 5;
+    border-spacing: 1px;
+    border-collapse: separate;
+    table-layout: fixed;
+}
+.box-input tr {
+}
+.box-input td {
+    width: 25%;
+    background-color: #F0F0F0;
+}
+.box-input .on{
+    box-shadow: inset 2px -2px 3px #333;
+}
+.box .gray {
+    background-color: #CACACA;
+}
+.box .orange {
+    background-color: #FF6D28;
+    color: #fff;
+}

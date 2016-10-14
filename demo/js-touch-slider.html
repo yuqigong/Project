@@ -1,0 +1,347 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <title>js-touch-slider</title>
+    <!-- Set wap app icon -->
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png" />
+    <!-- Base style -->
+    <link rel="stylesheet" href="../lib/css/base/base.css" />
+    <link rel="stylesheet" href="../lib/css/base/main.css" />
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .wrapper {
+            visibility: hidden;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            transition: all 1s ease-in-out;
+            transform: translate3d(0, 0, 0);
+            -webkit-backface-visibility: hidden;
+        }
+
+        .view {
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-size: 25rem;
+            line-height: 2;
+        }
+
+        .loading {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            z-index: 1;
+            width: 50%;
+            height: 10%;
+            text-align: center;
+        }
+
+        .dotting {
+            display: inline-block;
+            min-width: 2px;
+            min-height: 2px;
+            box-shadow: 2px 0 currentColor, 6px 0 currentColor, 10px 0 currentColor;
+            -webkit-animation: dot 4s infinite step-start both;
+            animation: dot 4s infinite step-start both;
+            /* IE7 */
+            *zoom: expression(this.innerHTML='...');
+        }
+        /* IE8 */
+
+        .dotting:before {
+            content: '...';
+        }
+
+        .dotting::before {
+            content: '';
+        }
+        /* IE9+,FF,CH,OP,SF */
+
+        :root .dotting {
+            margin-right: 8px;
+        }
+
+        @-webkit-keyframes dot {
+            25% {
+                box-shadow: none;
+            }
+            50% {
+                box-shadow: 2px 0 currentColor;
+            }
+            75% {
+                box-shadow: 2px 0 currentColor, 6px 0 currentColor;
+            }
+        }
+
+        @keyframes dot {
+            25% {
+                box-shadow: none;
+            }
+            50% {
+                box-shadow: 2px 0 currentColor;
+            }
+            75% {
+                box-shadow: 2px 0 currentColor, 6px 0 currentColor;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<!--     <div class="wrapper">
+        <div style="background: #EF0E59; height: 1000px;" class="view">1</div>
+        <div style="background: #F9F304; height: 1200px;" class="view">2</div>
+        <div style="background: #31DE64; height: 1500px;" class="view">3</div>
+        <div style="background: #00ABFF; height: 1800px;" class="view">4</div>
+        <div style="background: #DA33CC;" class="view">5</div>
+    </div> -->
+    <div class="wrapper">
+        <div style="background: #EF0E59;" class="view">1</div>
+        <div style="background: #F9F304;" class="view">2</div>
+        <div style="background: #31DE64;" class="view">3</div>
+        <div style="background: #00ABFF;" class="view">4</div>
+        <div style="background: #DA33CC;" class="view">5</div>
+    </div>
+    <!-- Base Javascript Lib -->
+    <script src="../lib/script/base/Zepto/zepto.js"></script>
+    <script type='text/template' id="tpl_load">
+        <div class="loading">
+            页面加载中<span class="dotting"></span>
+        </div>
+    </script>
+    <script>
+        (function($) {
+
+            var root = this;
+
+            var slider = function() {
+                document.ontouchmove = function(event) {
+                    event.preventDefault();
+                };
+
+                var options = arguments[0];
+
+                var defaults = {
+                    direction: 'v', //'v' 纵向,'h' 横向
+                    slidePercent: 0.3, //拖动超过多少百分比后才翻页
+                    subSelector: 'div' //子元素选择器
+                };
+
+                //配置选项
+                var settings = $.extend({}, defaults, options);
+                var selfie = $(settings.Id),
+                    loading = $($('#tpl_load').html()),
+                    views = selfie.find(settings.subSelector),
+                    length = views.length,
+                    curItemIndex = 0,
+                    oldPoint = 0,
+                    gap = 0,
+                    isEdge = window.document.body.clientHeight === window.document.body.scrollHeight,
+                    viewHeights = [],
+                    isAnimate = false;
+
+                var throttle = function(method, delay) {
+
+                    var timer = null;
+
+                    return function() {
+                        var context = this,
+                            args = arguments;
+                        clearTimeout(timer);
+                        timer = setTimeout(function() {
+                            method.apply(context, args);
+                        }, delay);
+                    }
+
+                };
+
+                var getHeight = function(elem) {
+
+                    var clone = elem;
+                    var height = clone.height() || 0;
+
+                    return height;
+                };
+
+                var animateMove = function(flag) {
+                    var itemIndex;
+
+                    // 下一页
+                    if (flag) {
+
+                        if (curItemIndex === length - 1) {
+                            return;
+                        }
+
+                        itemIndex = curItemIndex + 1;
+                    }
+                    // 上一页
+                    else {
+
+                        if (curItemIndex === 0) {
+                            return;
+                        }
+
+                        itemIndex = curItemIndex - 1;
+                    }
+
+                    isAnimate = true;
+
+                    views.eq(itemIndex).show();
+                    selfie.css('transform', 'translate3d(0, ' + -(itemIndex) * 100 + '%, 0)');
+
+                    setTimeout(function() {
+                        views.eq(curItemIndex).hide();
+                        isAnimate = false;
+                        // 更新 curItemIndex
+                        curItemIndex = itemIndex;
+                    }, 1000);
+                };
+
+                var scrollhandler = function() {
+                    // 取当前页面的可见高度、可滚动高度、滚动距离
+                    var currScrollHeight = window.document.body.scrollHeight,
+                        currScrollTop = window.document.body.scrollTop,
+                        currClientHeight = window.document.body.clientHeight;
+
+                    var differ = currScrollHeight - currClientHeight;
+
+                    // console.log(differ);
+                    // console.log(currScrollTop);
+
+                    // 到达下边界
+                    if (differ === currScrollTop) {
+                        return isEdge = true;
+                    }
+                    // 到达上边界
+                    else if (currScrollTop === 0) {
+                        return isEdge = true;
+                    }
+
+                    isEdge = false;
+                };
+
+                // 页面加载中
+                $('body').append(loading);
+
+                // 遍历子元素设置样式
+                views.each(function(index) {
+                    $(this).css({
+                        top: index * 100 + '%',
+                        left: 0
+                    });
+
+                    var viewHeight = getHeight($(this));
+                    viewHeights.push(viewHeight);
+
+                    if (index === 0) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+
+                selfie.on('touchstart', function(e) {
+
+                    var touch = e.touches[0];
+                    oldPoint = touch.clientY;
+
+                }).on('touchmove', function(e) {
+
+                    var touch = e.touches[0],
+                        currtPoint = touch.clientY;
+
+                    gap = currtPoint - oldPoint;
+
+                }).on('touchend', function(e) {
+
+                    // 下一页
+                    // if (gap < 0 && move && !isAnimate) {
+                    if (gap < 0 && isEdge && !isAnimate) {
+                        animateMove(true);
+                    }
+
+                    // 上一页
+                    // if (gap > 0 && move && !isAnimate) {
+                    if (gap > 0 && isEdge && !isAnimate) {
+                        animateMove(false);
+                    }
+
+                });
+
+                // 绑定 onscroll 事件
+                // 但到达边界时，才切换页面
+                // 注，页面高度可能不一样
+                window.onscroll = throttle(scrollhandler, 300);
+
+                this.jump = function(pageNo) {
+                    if (pageNo > 0 && pageNo <= length) {
+
+                        views.each(function() {
+                            $(this).css('opacity', 0);
+                        });
+                        // 更新
+                        curItemIndex = pageNo - 1;
+
+                        selfie.css('transform', 'translate3d(0, ' + -(curItemIndex) * 100 + '%, 0)');
+
+                        setTimeout(function() {
+                            views.each(function() {
+                                $(this).css('opacity', 1);
+                            });
+                        }, 1000);
+
+                        views.eq(curItemIndex).show().siblings().hide();
+                    }
+                };
+
+                    // 页面加载完成
+                    loading.hide();
+                    selfie.css('visibility', 'visible');
+            };
+
+            slider.prototype = {
+                go: function(index) {
+                    this.jump(index);
+                }
+            }
+
+            root.slider = slider;
+
+        }.call(this, Zepto));
+
+        $(function() {
+
+            window.foo = new slider({
+                Id: '.wrapper',
+                subSelector: 'div' //子元素选择器
+            });
+
+        });
+    </script>
+</body>
+
+</html>

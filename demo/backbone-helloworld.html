@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <title>Backbone-HelloWorld</title>
+    <!-- Set wap app icon -->
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png" />
+
+    <!-- Base style -->
+    <link rel="stylesheet" href="../lib/css/base/base.css" />
+    <link rel="stylesheet" href="../lib/css/base/main.css" />
+    <!-- <link rel="stylesheet" href="../lib/css/module/module.css"/> -->
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="paper">
+            <div class="head-bar">
+                <div class="nav">
+                    <h1 class="title">Backbone-Helloworld</h1>
+                    <a href="" class="btn l"></a>
+                </div>
+            </div>
+            <div class="container">
+                <div class="main">
+                    <button id="check">新手报到</button>
+                    <ul id="world-list"></ul>
+                </div>
+            </div>
+            <div class="foot-bar"></div>
+        </div>
+    </div>
+    <!-- Base Javascript Lib -->
+    <script src="../lib/script/base/jquery/jquery.js"></script>
+    <script src="../lib/script/base/underscore/underscore.js"></script>
+    <script src="../lib/script/base/backbone/backbone.1.2.3.js"></script>
+    <script>
+        (function($) {
+            'use strict'
+
+            var World = Backbone.Model.extend({
+                //创建一个World的对象，拥有name属性
+                name: null
+            });
+
+            var Worlds = Backbone.Collection.extend({
+                //World对象的集合
+                initialize: function(models, options) {
+                    this.bind("add", options.view.addOneWorld);
+                }
+            });
+
+            var AppView = Backbone.View.extend({
+                el: $("body"),
+                initialize: function() {
+                    //构造函数，实例化一个World集合类，并且以字典方式传入AppView的对象
+                    this.worlds = new Worlds(null, {
+                        view: this
+                    })
+                },
+                events: {
+                    "click #check": "checkIn", //事件绑定，绑定Dom中id为check的元素
+                },
+                checkIn: function() {
+                    var world_name = prompt("请问，您是哪星人?");
+                    if (world_name == "") world_name = '未知';
+                    var world = new World({
+                        name: world_name
+                    });
+                    this.worlds.add(world);
+                },
+                addOneWorld: function(model) {
+                    $("#world-list").append("<li>这里是来自 <b>" + model.get('name') + "</b> 星球的问候：hello world！</li>");
+                }
+            });
+            //实例化AppView
+            var appview = new AppView();
+        })(jQuery);
+    </script>
+</body>
+
+</html>

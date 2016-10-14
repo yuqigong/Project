@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>js-native</title>
+    <style>
+        .tag {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><a href="javascript:;">乡书记带队酒后砸饭店</a>
+        </li>
+        <li><a href="javascript:;">美女闹市裸浴</a>
+        </li>
+        <li><a class="tag" href="javascript:;">韩国女团车祸</a>
+        </li>
+        <li><a href="javascript:;">官员开房200多次</a>
+        </li>
+        <li><a href="javascript:;">黑哨陆俊出狱</a>
+        </li>
+        <li><a href="javascript:;">非洲国家斯威士兰国王纳妃</a>
+        </li>
+        <li><a href="javascript:;">央企薪酬改革名单</a>
+        </li>
+        <li><a href="javascript:;">黑龙江嫌犯杀警越狱</a>
+        </li>
+        <li><a href="javascript:;">乳山地震</a>
+        </li>
+        <li><a href="javascript:;">50亿韩元</a>
+        </li>
+        <li><a class="tag" href="javascript:;">阿娇为艳照女星喊冤</a>
+        </li>
+        <li><a href="javascript:;">百度直达号</a>
+        </li>
+        <li><a href="javascript:;">金道铭姐妹花情人</a>
+        </li>
+        <li><a class="tag" href="javascript:;">全国高中百强榜</a>
+        </li>
+        <li><a href="javascript:;">智能筷子</a>
+        </li>
+    </ul>
+    <script>
+        var links = document.getElementsByTagName('a');
+        for (var i = 0; i < links.length; i++) {
+            var classname = links[i].getAttribute('class') || links[i].getAttribute('className');
+            if (classname === 'tag') {
+                links[i].onclick = function() {
+                    var isJump = confirm('确认离开当前页面吗？');
+                    if (isJump) {
+                        window.open('http://www.baidu.com');
+                    }
+                    return false;
+                }
+            } else {
+                links[i].onclick = function() {
+                    var text = this.firstChild.nodeValue;
+                    alert(text);
+                    return false;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

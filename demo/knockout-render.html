@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <title>knockoutJS</title>
+    <!-- Set wap app icon -->
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png" />
+    <!-- Base style -->
+    <link rel="stylesheet" href="../lib/css/base/base.css" />
+    <link rel="stylesheet" href="../lib/css/base/main.css" />
+</head>
+
+<body>
+    <script type="text/template" id="tpl_list">
+        <ul>
+            <li>BizType: <span data-bind="text: a"></span></li>
+            <li>OrderID: <span data-bind="text: b"></span></li>
+            <li>OrderName: <span data-bind="text: c"></span></li>
+            <li>OrderStatusCode: <span data-bind="text: d"></span></li>
+            <li>OrderStatusName: '<span data-bind="text: e"></span></li>
+            <li>Currency: <span data-bind="text: f"></span></li>
+            <li>OrderTotalPrice: <span data-bind="text: g"></span></li>
+            <li>BookingDate: <span data-bind="text: h"></span></li>
+            <li>OrderType: <span data-bind="text: i"></span></li>
+            <li>Passagers: <span data-bind="text: j"></span></li>
+            <li>ContactName: <span data-bind="text: k"></span></li>
+            <li>ContactMobile: <span data-bind="text: l"></span></li>
+            <li>Longitude: <span data-bind="text: m"></span></li>
+            <li>Latitude: <span data-bind="text: n"></span></li>
+        </ul>
+    </script>
+
+    <script type="text/template" id="tpl">
+        <p>
+            推特被锁,不验证电话不让登陆,中国手机还不行, 偶一开始就想到上<span data-bind="text: w"></span>,但搜索推特解锁没头绪, 后来经提醒直接搜 <span data-bind="text: v"></span> 就找到了. 然后看到<span data-bind="text: w"></span>上批发 <span data-bind="text: v"></span> 号码已经成产业了, 问了一下<span data-bind="text: w"></span>店主,原来是<span data-bind="text: w"></span>刷单用,果然是万能的<span data-bind="text: w"></span>呀. —— Twitter. blogtd
+        </p>
+    </script>
+    <!-- Base Javascript Lib -->
+    <script src="../lib/script/base/lodash/lodash.3.10.1.js"></script>
+    <script src="../lib/script/base/jquery/jquery.js"></script>
+    <script src="../lib/script/base/knockout/knockout-3.3.0.js"></script>
+    </script>
+    <script type="text/javascript">
+    var tplKey = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n'];
+
+    var blueprintBasic = [
+        {blueprintId: '1', basicKey: 'a', basicValue: 'BizType'},
+        {blueprintId: '2', basicKey: 'b', basicValue: 'OrderID'},
+        {blueprintId: '3', basicKey: 'c', basicValue: 'OrderName'},
+        {blueprintId: '4', basicKey: 'd', basicValue: 'OrderStatusCode'},
+        {blueprintId: '5', basicKey: 'e', basicValue: 'OrderStatusName'},
+        {blueprintId: '6', basicKey: 'f', basicValue: 'Currency'},
+        {blueprintId: '7', basicKey: 'g', basicValue: 'OrderTotalPrice'},
+        {blueprintId: '8', basicKey: 'h', basicValue: 'BookingDate'},
+        {blueprintId: '9', basicKey: 'i', basicValue: 'OrderType'},
+        {blueprintId: '10', basicKey: 'j', basicValue: 'Passagers'},
+        {blueprintId: '11', basicKey: 'k', basicValue: 'ContactName'},
+        {blueprintId: '12', basicKey: 'l', basicValue: 'ContactMobile'},
+        {blueprintId: '13', basicKey: 'm', basicValue: 'Longitude'},
+        {blueprintId: '14', basicKey: 'n', basicValue: 'Latitude'}
+    ];
+
+    var dataSource = {
+        BizType: 'Cruise',
+        OrderID: 1147436524,
+        OrderName: '邮轮',
+        OrderStatusCode: 'canc',
+        OrderStatusName: '已取消',
+        Currency: 'RMB',
+        OrderTotalPrice: 18813,
+        BookingDate: '/Date(1445339043000+0800)/',
+        OrderType: 'order',
+        Passagers: 1,
+        ContactName: 'jee',
+        ContactMobile: 13988888888,
+        Longitude: 10,
+        Latitude: 80
+    };
+
+    var processTheData = function(tplKey, blueprintBasic) {
+        // Todo
+    };
+
+    var manageBlueprint = function(blueprintBasic, dataSource) {
+        var basicKeys = _.pluck(blueprintBasic, 'basicKey'),
+            basicValues = _.pluck(blueprintBasic, 'basicValue');
+
+        var values = [], n = 0;
+        _.each(basicValues, function(key) {
+            var keyName = basicKeys[n];
+            values[keyName] = dataSource[key];
+            n++;
+        })
+
+        return values;
+    };
+
+    var $tpl = $('#tpl').html();
+    var $tpl_List = $('#tpl_list').html();
+    var db = {
+            w: '淘宝',
+            v: 'google voice'
+        };
+
+    var DS = manageBlueprint(blueprintBasic, dataSource);
+
+    var easyKO = function(template, source) {
+        var viewModel = {}, n = 0;
+
+        var keys = _.keys(source);
+
+        $('body').append(template);
+
+        _.each(keys, function(k) {
+            viewModel[k] = ko.observable()
+        });
+
+        $.each(viewModel, function(func) {
+            viewModel[func](source[func]);
+        });
+
+        ko.applyBindings(viewModel);
+    };
+
+    // easyKO($tpl, db);
+
+    easyKO($tpl_List, DS);
+
+    // callViewModel(viewModel);
+
+    /**
+     * 基于Knockout的数据绑定
+     * @param  {[String]}   parent [父节点]
+     * @param  {[String]}   child  [子节点]
+     * @param  {[Json]}   data   [数据，key-value]
+     */
+    var koBind = function(parent, child, data) {}
+    </script>
+</body>
+
+</html>

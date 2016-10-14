@@ -1,0 +1,231 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <title>Document</title>
+    <!-- Set wap app icon -->
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png" />
+
+    <!-- Base style -->
+    <link rel="stylesheet" href="../lib/css/base/base.css" />
+    <link rel="stylesheet" href="../lib/css/module/js-touch-pjax.css" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <div style="background: #DC142E;" class="view">1</div>
+        <div style="background: #F9F304;" class="view">2</div>
+        <div style="background: #74C5DE;" class="view">3</div>
+        <div style="background: #19CA41;" class="view">4</div>
+    </div>
+    <!-- Base Javascript Lib -->
+    <script src="../lib/script/base/zepto/zepto.min.js"></script>
+    <script>
+        var slider = function() {
+            document.ontouchmove = function(event) {
+                event.preventDefault();
+            };
+
+            var options = arguments[0];
+
+            // 如果没有Id，则直接退出
+            if (!options.Id) {
+                return console.error('Missing Id!');
+            }
+
+            // 默认配置
+            var defaults = {
+                direction: 'h', //'h' 纵向,'v' 横向
+                slidePercent: 0.3, //拖动超过多少百分比后才翻页
+                itemSelector: 'div' //子元素选择器
+            };
+
+            // 声明
+            var settings = $.extend({}, defaults, options), //配置选项
+                $slider = $(settings.Id),
+                $items = $slider.find(settings.itemSelector), //获取子元素数组
+                sliderStylePosition = $slider.css('position'),
+                sliderHeight = $slider.height(),
+                sliderWidth = $slider.width(),
+                step = 0,
+                curItemIndex = 0,
+                oldPosition = 0,
+                backMove = false,
+                forwardMove = false,
+                backFirst = false,
+                forwardLast = false,
+                isAnimate = false;
+
+            // 滑动的方向
+            // 如果垂直方向 direction 为 ‘v’, 取 sliderHeight
+            // 如果水平方向 direction 为 ‘h’, 取 sliderWidth
+            var isDirectionV = (settings.direction == 'v'),
+                distance = isDirectionV ? sliderHeight : sliderWidth;
+
+            // 初始化
+            $slider.css({
+                'background-color': '#000'
+            });
+
+            // 设置slider容器的position值
+            sliderStylePosition == 'absolute' || sliderStylePosition == 'fixed' || ($slider.css({
+                'position': 'relative'
+            }));
+
+            // 遍历子元素设置样式
+            $items.each(function(i) {
+                $items.eq(i).css({
+                    'position': 'absolute',
+                    'top': isDirectionV ? sliderHeight + 'px' : 0,
+                    'left': isDirectionV ? 0 : sliderWidth + 'px',
+                    'z-index': '500'
+                });
+            });
+
+            // 重置第一个子元素的样式
+            $items.eq(0).css(isDirectionV ? 'top' : 'left', 0);
+
+            // 放手后自动滑向目标位置， flag控制滑动方向
+            // isCall 判断是否为调用
+            var animateItem = function(flag, pageNo) {
+                flag ? flag = 1 : flag = -1;
+                isAnimate = true;
+                var percent = Math.abs(step) / distance,
+                    animTarget = percent > settings.slidePercent ? '0px' : distance * flag + 'px',
+                    animProperty = isDirectionV ? {
+                        'top': animTarget
+                    } : {
+                        'left': animTarget
+                    },
+                    oldTarget = -distance * flag + 'px',
+                    oldProperty = isDirectionV ? {
+                        'top': oldTarget
+                    } : {
+                        'left': oldTarget
+                    };
+                // 下一帧
+                if (pageNo) {
+                    curItemIndex = pageNo;
+                }
+                // 当前view动画
+                $items.eq(curItemIndex + flag).animate(animProperty, 250, 'ease-in', function() {
+                    if (percent > settings.slidePercent) {
+                        $items.eq(curItemIndex).css(oldProperty).css('opacity', '');
+                        $items.eq(curItemIndex + flag).css({
+                            'transition': '',
+                            'z-index': 500
+                        });
+                        curItemIndex += flag;
+                        // view完成后的回调
+                        settings.onMoveEnd(curItemIndex);
+                    } else {
+                        $items.eq(curItemIndex).css('opacity', '');
+                    }
+                    isAnimate = false;
+                });
+            };
+            // 设置随手被拖动的坐标
+            var moveItem = function(moveItemIndex, newPosition) {
+
+                $items.eq(curItemIndex).css('opacity', 1 - Math.abs(step) / distance);
+                $items.eq(moveItemIndex).css(isDirectionV ? 'top' : 'left', newPosition + 'px').css({
+                    'z-index': 1000
+                });
+
+            };
+
+            // 事件注册
+            $slider.on('touchstart', function(e) {
+
+                var touch = e.touches[0];
+                oldPosition = isDirectionV ? touch.clientY : touch.clientX;
+                step = 0;
+                backMove = false;
+                forwardMove = false;
+                backFirst = false;
+                forwardLast = false;
+
+            }).on('touchmove', function(e) {
+
+                var touch = e.touches[0],
+                    curPosition = isDirectionV ? touch.clientY : touch.clientX,
+                    gap = curPosition - oldPosition,
+                    moveItemIndex = 0,
+                    newPosition = 0;
+                step += gap;
+
+                // 向上/左正向滑
+                if (gap < 0 && !isAnimate) {
+                    forwardLast = curItemIndex == $items.length - 1 && !backMove ? true : false;
+                    if (backMove) { //先向下/右逆向滑，过程中不放手再向上/左正向滑
+                        newPosition = -distance + step;
+                        moveItemIndex = curItemIndex == 0 ? curItemIndex : curItemIndex - 1;
+                        moveItem(moveItemIndex, newPosition);
+                    } else if (curItemIndex !== $items.length - 1 && !backFirst) {
+                        newPosition = distance + step;
+                        moveItemIndex = curItemIndex + 1;
+                        moveItem(moveItemIndex, newPosition);
+                        forwardMove = true;
+                    }
+                }
+
+                // 向下/右逆向滑
+                if (gap > 0 && !isAnimate) {
+                    backFirst = curItemIndex == 0 && !forwardMove ? true : false;
+                    // 先向上/左正向滑，过程中不放手再向下/右逆向滑
+                    if (forwardMove) {
+                        newPosition = distance + step;
+                        moveItemIndex = curItemIndex == $items.length - 1 ? curItemIndex : curItemIndex + 1;
+                        moveItem(moveItemIndex, newPosition);
+                    } else if (curItemIndex !== 0 && !forwardLast) {
+                        newPosition = -distance + step;
+                        moveItemIndex = curItemIndex - 1;
+                        backMove = true;
+                        moveItem(moveItemIndex, newPosition);
+                    }
+                }
+
+                // 更新坐标
+                oldPosition = curPosition;
+
+            }).on('touchend', function() {
+
+                if (forwardMove) {
+                    animateItem(true);
+                } else if (backMove) {
+                    animateItem(false);
+                }
+
+            });
+
+            this.jump = function(flag, pageNo) {
+                animateItem(flag, pageNo);
+            }
+        };
+
+        $(function() {
+            window.foo = new slider({
+                Id: '.wrapper',
+                direction: 'v', //'h' 纵向,'v' 横向
+                slidePercent: 0.3, //拖动超过多少百分比后才翻页
+                itemSelector: 'div', //子元素选择器
+                onMoveEnd: function(index) { // 滑动结束后事件
+                    // index++;
+                    // console.log(index);
+                    location.hash = index;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

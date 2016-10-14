@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>js-animation</title>
+    <link rel="stylesheet" href="../lib/css/module/js-animation.css">
+    <script src="../lib/script/base/jQuery/jquery.js"></script>
+</head>
+
+<body>
+    <div id="j_anim" class="mod-anim">
+        <span class="key-1"></span>
+        <span class="key-2 hide"></span>
+        <span class="key-3 hide"></span>
+    </div>
+    <script>
+    $(function() {;
+        (function() {
+            var objAnim = $('#j_anim'),
+                k1 = objAnim.children('.key-1'),
+                k2 = objAnim.children('.key-2'),
+                k3 = objAnim.children('.key-3'),
+                arrK = [k1, k2, k3];
+            (function() {
+                for (var i = 0; i < arrK.length; i++) {
+                    if (!arrK[i].hasClass('hide')) {
+                        arrK[i].addClass('hide');
+                        i = i + 1;
+                        if (i > 2) {
+                            i = 0;
+                        }
+                        arrK[i].removeClass('hide');
+                    }
+                }
+                setTimeout(arguments.callee, 300);
+            })();
+        })();
+    });
+    </script>
+</body>
+
+</html>

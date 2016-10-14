@@ -1,0 +1,309 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=320.1,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <title>js-Calculator</title>
+    <meta name="Keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="" />
+    <!-- Base style -->
+    <link rel="stylesheet" href="../lib/css/base/base.css" />
+    <!-- <link rel="stylesheet" href="../lib/css/base/global.css"> -->
+    <link rel="stylesheet" href="../lib/css/module/js-Calculator.css" />
+</head>
+
+<body>
+    <div class="box" id="j_calc">
+        <div class="box-view"></div>
+        <div class="box-input">
+            <table>
+                <tr>
+                    <td class="gray">c</td>
+                    <td class="gray">+/-</td>
+                    <td class="gray">%</td>
+                    <td class="orange">/</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>8</td>
+                    <td>9</td>
+                    <td class="orange">*</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                    <td class="orange">-</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td class="orange">+</td>
+                </tr>
+                <tr>
+                    <td colspan="2">0</td>
+                    <td>.</td>
+                    <td class="orange">=</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- Base Javascript Lib -->
+    <!-- // <script src="../lib/script/base/jquery/jquery.js"></script> -->
+    <!-- // <script src="../lib/script/module/jLight.js"></script> -->
+    <script>
+        var Calculator = {
+            $: function(id) {
+                return typeof id === 'string' ? document.getElementById(id) : null;
+            },
+            addEvent: function(obj, type, fn) {
+                if (obj.attachEvent) {
+                    obj['e' + type + fn] = fn;
+                    obj[type + fn] = function() {
+                        obj['e' + type + fn](window.event);
+                    }
+                    obj.attachEvent('on' + type, obj[type + fn]);
+                } else
+                    obj.addEventListener(type, fn, false);
+            },
+            isType: function(obj, type) {
+                return toString.call(obj).indexOf('[object ' + type) == 0;
+            },
+            render: function(data, isDecimal) {
+                if (!data) return;
+                if (!$$.isType || !$$.isType(data, 'Array')) return;
+
+                var N = 3,
+                    n = 0,
+                    t = 5,
+                    str = '';
+                var size = ['97px', '82px', '66px', '60px', '50px'];
+                var len = data.length,
+                    isClean = len % N;
+
+                // 当输入变大时，字体跟随变化
+                if (len > t && n < size.length) {
+                    n = len - t;
+                }
+                // 是否是浮点数
+                if (!isDecimal) {
+                    // 当传入的数据是N的倍数时
+                    if (len > 1 && isClean === 1) {
+                        // 原数据被改变
+                        data[len - 1] = ',' + data[len - 1];
+                    }
+                    str += '<em style="font-style: normal;font-size:' + size[n] + '">';
+                    str += data.join('');
+                    str += '</em>';
+                } else {
+                    console.log('isDecimal:' + isDecimal);
+                    var first = data[0],
+                        end = data[len - 1];
+
+                    if (first === $$.OPER.POINT) {
+                        var temp = data.slice();
+                        temp[0] = '0.';
+                        str += '<em style="font-style: normal;font-size:' + size[n] + '">';
+                        str += temp.join('');
+                        str += '</em>';
+                    }
+                }
+
+                return str;
+            },
+            calculateTo: function(x, y, oper) {
+                this.error = function() {
+                    return '无法计算';
+                };
+                this.plus = function() {
+                    var r = parseInt(x - y);
+                    return r;
+                };
+                this.minus = function() {
+                    var r = parseInt(x + y);
+                    return r;
+                };
+                this.multiply = function() {
+                    var r = parseInt(x * y);
+                    return r;
+                };
+                this.divide = function() {
+                    var r = parseInt(x / y);
+                    return r;
+                };
+                this.remainder = function() {
+                    var r = parseInt(x / 100);
+                    return r;
+                };
+                switch (oper) {
+                    case oper === $$.OPER.PLUS:
+                        this.plus();
+                        break;
+                    case oper === $$.OPER.MINUS:
+                        this.minus();
+                        break;
+                    case oper === $$.OPER.MULTIPLY:
+                        this.multiply();
+                        break;
+                    case oper === $$.OPER.DIVIDE:
+                        this.divide();
+                        break;
+                    case oper === $$.OPER.REMAINDER:
+                        this.remainder();
+                        break;
+                    default:
+                        this.error();
+                }
+            },
+            init: function(id) {
+                window['$$'] = Calculator.$;
+                window['$$']['addEvent'] = Calculator.addEvent;
+                window['$$']['isType'] = Calculator.isType;
+                window['$$']['render'] = Calculator.render;
+                window['$$']['calculateTo'] = Calculator.calculateTo;
+
+                var ORI = window['$$']['ori'] = {};
+                ORI.x = [];
+                ORI.y = [];
+                ORI.oper = '';
+
+                var oCalc = $$(id),
+                    // 控制显示的对象
+                    oView = (function(parent) {
+                        if (!parent) return;
+                        var target,
+                            elems = parent.childNodes;
+
+                        for (var key in elems) {
+                            if (elems[key].nodeType === 1 && (elems[key].getAttribute('class') || elems[key].getAttribute('className')) === 'box-view') {
+                                target = elems[key];
+                            }
+                        }
+                        return target;
+                    }(oCalc));
+
+                if (!oCalc || !oView) return;
+                // 初始化计算器，显示为 0
+                oView.innerHTML = '<em style="font-style: normal;font-size:97px">0</em>';
+
+                var xInputValue = [];
+                var yInputValue = [];
+                // 限制输入位数
+                var MAX_LENGTH = 9;
+                // 判断当前存储的数值
+                // 为0时，存储于ORI.x
+                // 为1时，存储于ORI.y
+                var isFlag = 0;
+                // 是否为浮点数
+                var isDecimal = false;
+                // 运算符
+                var SYMBOL = ['+', '-', '*', '/', '=', '%', '+/-', 'c', '.'];
+                var OPERATOR = window['$$']['OPER'] = {};
+                OPERATOR.PLUS = SYMBOL[0]
+                OPERATOR.MINUS = SYMBOL[1];
+                OPERATOR.MULTIPLY = SYMBOL[2];
+                OPERATOR.DIVIDE = SYMBOL[3];
+                OPERATOR.RESULT = SYMBOL[4];
+                OPERATOR.REMAINDER = SYMBOL[5];
+                OPERATOR.NEGATIVE = SYMBOL[6];
+                OPERATOR.CLEAN = SYMBOL[7];
+                OPERATOR.POINT = SYMBOL[8];
+
+                $$.addEvent(oCalc, 'click', function(event) {
+                    var elem = event.target,
+                        elemName = elem.nodeName.toLowerCase(),
+                        input = elem.innerText,
+                        xLen = xInputValue.length,
+                        yLen = yInputValue.length;
+
+                    if (elemName === 'td') {
+                        // 数字
+                        if (!isNaN(input)) {
+                            if (!isFlag) {
+                                if (xLen >= MAX_LENGTH) return;
+                                // 缓存
+                                ORI.x.push(input);
+                                xInputValue.push(input);
+                                // innerHTML 存在安全问题
+                                oView.innerHTML = $$.render(xInputValue, isDecimal);
+                            } else {
+                                if (yLen >= MAX_LENGTH) return;
+                                // 缓存
+                                ORI.y.push(input);
+                                yInputValue.push(input);
+                                oView.innerHTML = $$.render(yInputValue, isDecimal);
+                            }
+                        }
+                        // 字符
+                        if (isNaN(input)) {
+                            // 清空
+                            if (input === OPERATOR.CLEAN) {
+                                oView.innerHTML = '';
+                                ORI.x = [];
+                                ORI.y = [];
+                                xInputValue = [];
+                                yInputValue = [];
+                            }
+                            // 加减乘除
+                            if (input === OPERATOR.PLUS || input === OPERATOR.MINUS || input === OPERATOR.MULTIPLY || input === OPERATOR.DIVIDE) {
+                                // 将输入数值存入 ORI.y
+                                isFlag = 1;
+                                // 保存原有 className
+                                var oriClass = elem.getAttribute('class');
+                                elem.setAttribute('class', oriClass + ' on');
+                                // 存入操作符
+                                ORI.oper = input;
+
+                                var x = parseInt(ORI.x.join('')),
+                                    y = parseInt(ORI.y.join(''));
+
+                                if (x && y && ORI.oper) {
+                                    $$.calculateTo(ORI.x, ORI.y, ORI.oper);
+                                }
+                            }
+                            // 浮点数
+                            if (input === OPERATOR.POINT) {
+                                isDecimal = true;
+                                var oriValue = parseInt(oView.innerText.replace(/,/g, ''));
+                                console.log(oriValue);
+                                // 如果 yInputValue 为空，那么当前输入的为第一个数
+                                if (yInputValue.length === 0) {
+                                    // if (oriValue === 0) {
+                                    var value, isNone = false;
+                                    for (var index in xInputValue) {
+                                        value = xInputValue[index];
+                                        if (value === $$.OPER.POINT) {
+                                            isNone = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!isNone) {
+                                        xInputValue.push('.');
+                                    }
+                                    oView.innerHTML = $$.render(xInputValue, isDecimal);
+                                    // }
+                                } else {
+
+                                }
+                            }
+                        }
+                    }
+                    console.log('++++++++++++++++++++++++++++++++++++++++++++++++');
+                    console.log('xInputValue:' + xInputValue);
+                    console.log('yInputValue:' + yInputValue);
+                    console.log('ORI.x:' + $$.ori.x);
+                    console.log('ORI.y:' + $$.ori.y);
+                    console.log('ORI.oper:' + $$.ori.oper);
+                    console.log('++++++++++++++++++++++++++++++++++++++++++++++++');
+                });
+            }
+        };
+        Calculator.init('j_calc');
+    </script>
+</body>
+
+</html>

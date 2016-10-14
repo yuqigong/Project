@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+.hide{
+    display: none !important;
+}
+
+.mod-anim{
+    width: 640px;
+    height: 628px;
+    background-color: red;
+    margin: 50px auto;
+    position: relative;
+}
+.mod-anim span{
+    display: inline-block;
+    width: 640px;
+    height: 628px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.mod-anim .key-1{
+    background: url("../../img/js-animation/1.png") no-repeat 0 0;
+    z-index: 1;
+}
+.mod-anim .key-2{
+    background: url("../../img/js-animation/2.png") no-repeat 0 0;
+    z-index: 2;
+}
+.mod-anim .key-3{
+    background: url("../../img/js-animation/3.png") no-repeat 0 0;
+    z-index: 3;
+}

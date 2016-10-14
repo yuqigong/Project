@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>css3-border-image</title>
+    <style type="text/css">
+    .border-image-btn {
+        border: 18px solid green;
+        border-width: 0 18px;
+        -webkit-border-image: url("/img/css3-border-image/button_sprite.png") 0 18 50 18;
+        /*-moz-border-image: url("/img/css3-border-image/button_sprite.png") 0 18 50 18;
+        -o-border-image: url("/img/css3-border-image/button_sprite.png") 0 18 50 18;
+        border-image: url("/img/css3-border-image/button_sprite.png") 0 18 50 18;*/
+        /*border-image-source: url("/img/css3-border-image/button_sprite.png");*/
+        /*border-image-slice: 0 18 50 18;*/
+        padding: 13px 10px 17px;
+        font-size: 16px;
+        color: #fff;
+        font-weight: bold;
+        text-decoration:none;
+        line-height: 15px;
+    }
+    .border-image-btn:hover {
+        -webkit-border-image: url("/img/css3-border-image/button_sprite.png") 50 18 0 18;
+        /* -moz-border-image: url("/img/css3-border-image/button_sprite.png") 50 18 0 18;
+        -o-border-image: url("/img/css3-border-image/button_sprite.png") 50 18 0 18;
+        border-image: url("/img/css3-border-image/button_sprite.png") 50 18 0 18;*/
+        color: #000;
+        border-color: yellow;
+        text-decoration: none;
+    }
+    .border-image {
+        width: 150px;
+        /*height: 100px;*/
+        border: 27px solid orange;
+        margin: 20px auto;
+    }
+    .border-image-round {
+        /*-webkit-border-image: url("/img/css3-border-image/bd.png") 27 round stretch;*/
+        /*-moz-border-image: url("/img/css3-border-image/bd.png") 27 round stretch;*/
+        /*-o-border-image: url("/img/css3-border-image/bd.png") 27 round stretch;*/
+        /*border-image: url("/img/css3-border-image/bd.png") 27 round stretch;*/
+        border-image-source: url("/img/css3-border-image/bd.png");
+        border-image-slice: 27;
+        border-image-repeat: round stretch;
+    }
+    .ball{
+        width: 450px;
+        border: 12px solid #FDD032;
+        margin: 20px auto;
+
+        border-image-source: url("/img/css3-border-image/ball-9.png");
+        border-image-slice: 12;
+        border-image-repeat: round;
+        background-color: #FDD032;
+    }
+    </style>
+</head>
+
+<body>
+    <a href="#" class="border-image-btn">border-image-btn</a>
+    <div class="border-image border-image-round">
+        名为Men no Sato 的忍者面馆位于日本东京Tachikawa（如今，已经搬家到Akihabara 了），是一个女忍者为主题的面馆。面馆里的服务人员都以忍者（甚至是动漫火影忍者）为造型，并且妹子都穿得清凉，实在让人happy。 AKB秋叶原充满了各种各样的主题店（女仆咖啡什么的），多出这么一个忍者店也不算什么稀奇吧。实际上，顾客要求的比你想得更多，一些用户在日本社区2ch 上抱怨Men no Sato 面馆，说里面的服务人员虽然打扮成了忍者的样子，但是头发却染成了黄色，实在是太洗剪吹，没有一点忍者低调的作风，让人不爽。 一位用户在 2ch 社区上写到：我已经观察这个面馆3个月了，这里的服务人员竟然没有一个黑色头发。彩色头发的忍者在动漫作品里尚可接受，但是到真实世界中，还是应该为黑色。不过这里的面貌似还不错。
+    </div>
+    <div class="ball">
+        名为Men no Sato 的忍者面馆位于日本东京Tachikawa（如今，已经搬家到Akihabara 了），是一个女忍者为主题的面馆。面馆里的服务人员都以忍者（甚至是动漫火影忍者）为造型，并且妹子都穿得清凉，实在让人happy。 AKB秋叶原充满了各种各样的主题店（女仆咖啡什么的），多出这么一个忍者店也不算什么稀奇吧。实际上，顾客要求的比你想得更多，一些用户在日本社区2ch 上抱怨Men no Sato 面馆，说里面的服务人员虽然打扮成了忍者的样子，但是头发却染成了黄色，实在是太洗剪吹，没有一点忍者低调的作风，让人不爽。 一位用户在 2ch 社区上写到：我已经观察这个面馆3个月了，这里的服务人员竟然没有一个黑色头发。彩色头发的忍者在动漫作品里尚可接受，但是到真实世界中，还是应该为黑色。不过这里的面貌似还不错。
+    </div>
+</body>
+
+</html>

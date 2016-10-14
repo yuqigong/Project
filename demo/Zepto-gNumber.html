@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Zepto-gNumber</title>
+    <link rel="stylesheet" href="../lib/css/base/base.css">
+    <link rel="stylesheet" href="../lib/css/module/Zepto-gNumber.css">
+</head>
+
+<body>
+    <div class="mod-number">
+        <a href="javascript:;" class="mod-number-minus minus">-</a>
+        <input type="text" class="mod-number-input input">
+        <a href="javascript:;" class="mod-number-plus plus">+</a>
+    </div>
+    <div class="mod-number">
+        <a href="javascript:;" class="mod-number-minus minus">-</a>
+        <input type="text" class="mod-number-input input">
+        <a href="javascript:;" class="mod-number-plus plus">+</a>
+    </div>
+    <div id="j_num" class="mod-number">
+        <a href="javascript:;" class="mod-number-minus mm">-</a>
+        <input type="text" class="mod-number-input ii">
+        <a href="javascript:;" class="mod-number-plus pp">+</a>
+    </div>
+    <script type="text/javascript" src="../lib/script/base/zepto/zepto.min.js"></script>
+    <script src="../lib/script/module/Zepto-gNumber.js"></script>
+    <script>
+        $(function() {
+            $('.mod-number').gNumber();
+            $('#j_num').gNumber({
+                minusClass: '.mm',
+                plusClass: '.pp',
+                inputClass: '.ii',
+                initValue: 5,
+                speed: 2
+            });
+        });
+    </script>
+</body>
+
+</html>

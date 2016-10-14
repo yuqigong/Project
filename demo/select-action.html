@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>select-action</title>
+</head>
+<body>
+	<select name="" id="sel_city">
+		<option value="请选择">请选择</option>
+		<option value="上海">上海</option>
+		<option value="杭州">杭州</option>
+		<option value="北京">北京</option>
+	</select>
+	<input type="hidden" name="" value="上海" id="h_city">
+	<script>
+	var oSelCity = document.getElementById('sel_city'),
+		iCount = oSelCity.options.length,
+		strFlag = document.getElementById('h_city').value;
+	// alert.log(oSelCity.options[1].text);
+	// alert.log(iCount);
+	if(strFlag.length > 0){
+		for(var i=0;i<iCount;i++){
+			if(oSelCity.options[i].text == strFlag){
+				oSelCity.options[i].selected = true;
+				break;
+			}
+		}
+	}
+	</script>
+</body>
+</html>

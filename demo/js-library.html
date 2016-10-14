@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js-library</title>
+    <script src="../lib/script/module/qs.js"></script>
+</head>
+<body>
+    <p>$</p>
+    <div>
+        <input type="text" name="" id="j_in">
+        <button id="j_btn">get</button>
+    </div>
+    <script>
+        window.onload = function() {
+            var oBtn = QS.$('j_btn'),
+                oInput = QS.$('j_in');
+
+            QS.addEvent(oBtn, 'click', function() {
+                var str = oInput.value;
+                console.log(str);
+            });
+        }
+    </script>
+</body>
+</html>

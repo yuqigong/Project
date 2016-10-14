@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ie6-position-fixed</title>
+    <style type="text/css">
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    /*.s1{background-color: red;}*/
+    /*.s2{background-color: blue;}*/
+    /*.s3{background-color: red;}*/
+    /*.s4{background-color: blue;}*/
+    /*.s5{background-color: red;}*/
+    /*.s6{background-color: blue;}*/
+    body{
+        position: relative;
+    }
+    .h{
+        height: 200px;
+    }
+    .ie6-fixed-right{
+        width: 139px;
+        height: 133px;
+        background: url("/img/code.png") no-repeat 0 0;
+    }
+    /*让position:fixed在IE6下可用! */
+    .ie6-fixed-right{position:fixed;top:400px;right:50px;}
+    /* 上面的是除了IE6的主流浏览器通用的方法 */
+    * html,* html body{background-image:url(about:blank);background-attachment:fixed;}
+    * html .ie6-fixed-right{position:absolute;right:expression(eval(document.documentElement.scrollLeft+50));top:expression(eval(document.documentElement.scrollTop+400))}
+    </style>
+</head>
+<body>
+    <div class="ie6-fixed-right"></div>
+    <div class="h s1"></div>
+    <div class="h s2"></div>
+    <div class="h s3"></div>
+    <div class="h s4"></div>
+    <div class="h s5"></div>
+    <div class="h s6"></div>
+</body>
+</html>

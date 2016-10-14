@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Web PPT</title>
+</head>
+
+<body>
+    <h1>Web PPT</h1>
+    <ul id="list" style="display:none;">
+        <li>
+            <a href="doc/index-revealjs.html">revealJS Tutorial</a>
+        </li>
+        <li>
+            <a href="doc/index-sublime.html">Sublime Text 分享</a>
+        </li>
+        <li>
+            <a href="doc/index-react.html">React 浅析</a>
+        </li>
+        <li>
+            <a href="doc/index-myctrip-javascrtip.html">JavaScript Style Guide</a>
+        </li>
+        <li>
+            <a href="doc/unnamed.html">未命名</a>
+        </li>
+    </ul>
+    <script>
+    var getRequest = function() {
+        var url = location.search, //获取url中"?"符后的字串
+            theRequest = {};
+        if (url.indexOf('?') !== -1) {
+            var str = url.substr(1),
+                strs = str.split('&');
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split('=')[0]] = unescape(strs[i].split('=')[1]);
+            }
+        }
+        return theRequest;
+    };
+    var o = getRequest();
+    if (o.say !== 'open') {
+        window.location.href = 'https://github.com/该地址不可以访问！！';
+    }
+    setTimeout(function(){
+        var el = document.getElementById('list');
+        el.style.display = 'block';
+    },3000);
+    </script>
+</body>
+
+</html>

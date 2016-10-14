@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS日历控件</title>
+    <style type="text/css">
+    .Calendar {
+        font-family: Verdana;
+        font-size: 12px;
+        text-align: center;
+        width: 200px;
+        height: auto;
+        padding: 20px 8px 8px;
+        line-height: 1.5;
+        margin: 0;
+        border: 1px solid #d6d6d6;
+        overflow: hidden
+    }
+
+    .Calendar a {
+        color: #000;
+        text-decoration: none
+    }
+
+    .Calendar table {
+        width: 100%;
+        border: 0
+    }
+
+    .Calendar table th,
+    .Calendar table td {
+        font-size: 11px;
+        text-align: center;
+        padding: 5px;
+        color: #333
+    }
+
+    .CalPrev {
+        cursor: pointer;
+        float: left;
+        padding-left: 5px
+    }
+
+    .CalNext {
+        cursor: pointer;
+        float: right;
+        padding-right: 5px
+    }
+
+    .Calendar td.onToday {
+        color: #f00;
+        font-weight: bold
+    }
+
+    .Calendar td.onStart,
+    .Calendar td.onEnd {
+        color: #0a00ff;
+        font-weight: bold;
+    }
+
+    .Calendar td.onSelect {
+        background: #ecebeb
+    }
+
+    .Calendar td.invalid {
+        color: #d4d4d4
+    }
+
+    .Calendar td.onToday.invalid,
+    .Calendar td.onStart.invalid,
+    .Calendar td.onEnd.invalid {
+        background: #f5f5f5;
+    }
+
+    .Calendar td.effect {}
+    </style>
+</head>
+
+<body>
+    <div id="cal"></div>
+</body>
+<script type="text/template" id="tpl_cal">
+    <div class="Calendar" id="idCalendar">
+        <div class="CalPrev" id="idCalPrev">&lt;&lt;</div>
+        <div class="CalNext" id="idCalNext">&gt;&gt;</div>
+        <span class="idCalYear">{{year}} </span>年
+        <span class="idCalMonth">{{month}} </span>月
+        <table>
+            {{weeks}} {{days}}
+        </table>
+    </div>
+</script>
+<script type="text/javascript" src="../lib/script/module/calendar.js"></script>
+<script>
+var cal = Calendar.getInstance({
+    id: 'cal',
+    range: ['2016-8-1', '2016-8-20'],
+    startDate: '2016/8/10',
+    endDate: '2016/10/20',
+    // today: false,
+    onSelect: function(evt, elem) {
+
+        if (evt.target && evt.target.nodeName.toUpperCase() === 'TD') {
+
+            var TDs = elem.getElementsByTagName('td'),
+                currtElem = evt.target,
+                currtDate = new Date(this.cYear, this.cMonth - 1, +currtElem.innerHTML);
+
+            if (this.isToday(currtDate)) {
+                currtElem.className = 'onToday onSelect';
+            } else if (this.isStart(currtDate)) {
+                currtElem.className = 'onStart onSelect';
+            } else if (this.isEnd(currtDate)) {
+                currtElem.className = 'onEnd onSelect';
+            } else {
+                currtElem.className = 'onSelect';
+            }
+
+            this.selectDay = currtDate;
+
+        }
+
+        return false;
+    }
+});
+
+// 不使用默认日历
+// 实现自定义方法
+// var cal = Calendar.getInstance({
+//     id: 'cal',
+//     templateId: 'tpl_cal',
+//     onToday: function(day) {
+//         return '<td class="onToday">' + day + '</td>';
+//     },
+//     onSelect: function(evt, elem) {
+
+//         if (evt.target && evt.target.nodeName.toUpperCase() === 'TD') {
+
+//             var TDs = elem.getElementsByTagName('td'),
+//                 day = +evt.target.innerHTML;
+
+//             for (var i = 0; i < TDs.length; i++) {
+//                 var d1 = new Date(this.cYear, this.cMonth - 1, TDs.item(i).innerHTML),
+//                     d2 = new Date();
+
+//                 if (this.isSame(d1, d2)) {
+//                     TDs.item(i).className = 'onToday';
+//                 } else {
+//                     TDs.item(i).className = '';
+//                 }
+//             }
+
+//             // 获取今日
+//             if (this.isSame(new Date(this.cYear, this.cMonth - 1, day), new Date())) {
+//                 evt.target.className = 'onToday onSelect';
+//             } else {
+//                 evt.target.className = 'onSelect';
+//             }
+
+//             this.selectDay = day;
+//             this.selectWeek = this.getDay(day);
+
+//         }
+
+//     },
+//     /**
+//      * [templateEngine 字符串模板]
+//      * @param  {[string]} str  [字符串]
+//      * @param  {[object]} opts [值]
+//      * @return {[string]}      [字符串]
+//      */
+//     templateEngine: function(str, opts) {
+//         for (var k in opts) {
+//             if (opts.hasOwnProperty(k)) {
+//                 str = str.replace(new RegExp('{{' + k + '}}', 'g'), opts[k]);
+//             }
+//         }
+//         return str;
+//     },
+//     render: function() {
+//         var that = this,
+//             tpl = this.fn.$(this.options.templateId).innerHTML;
+
+//         var data = {
+//             year: this.cYear,
+//             month: this.cMonth,
+//             weeks: (function() {
+//                 var week = ['日', '一', '二', '三', '四', '五', '六'],
+//                     tplWeeks = '<tr>';
+//                 while (week.length > 0) {
+//                     tplWeeks += '<th>' + week.shift() + '</th>';
+//                 }
+//                 tplWeeks += '</tr>';
+
+//                 return tplWeeks;
+//             })(),
+//             days: (function() {
+//                 var days = that.getDates(),
+//                     tplDays = '';
+
+//                 while (days.length > 0) {
+//                     var row = '';
+//                     //星期
+//                     for (var i = 1; i <= 7; i++) {
+//                         var day = '',
+//                             cell = '';
+//                         if (days.length > 0) {
+//                             var day = days.shift().day;
+
+//                             if (day) {
+//                                 //获取今日
+//                                 if (that.isSame(new Date(that.cYear, that.cMonth - 1, day), new Date())) {
+//                                     cell += that.options.onToday(day);
+//                                 } else {
+//                                     cell += '<td>' + day + '</td>';
+//                                 }
+//                             } else {
+//                                 cell += '<td>' + day + '</td>';
+//                             }
+//                         }
+//                         row += cell;
+//                     }
+//                     tplDays += '<tr>' + row + '</tr>';
+//                 }
+
+//                 return tplDays;
+//             })()
+//         };
+
+//         this.fn.$(this.options.id).innerHTML = this.options.templateEngine(tpl, data);
+//     },
+//     bindEvent: function() {
+
+//         var cal = this.fn.$('idCalendar'),
+//             btnPrev = this.fn.$('idCalPrev'),
+//             btnNext = this.fn.$('idCalNext');
+
+//         var that = this;
+
+//         this.fn.addEvent(btnPrev, 'click', function() {
+//             that.preMonth();
+//         });
+
+//         this.fn.addEvent(btnNext, 'click', function() {
+//             that.nextMonth();
+//         });
+
+//         this.fn.addEvent(cal, 'click', function(evt) {
+//             that.options.onSelect.call(that, evt, this);
+//         });
+//     }
+// });
+</script>
+
+</html>

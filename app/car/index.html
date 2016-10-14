@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <title>Document</title>
+    <link rel="stylesheet" href="vendor/core/css/base.css">
+    <link rel="stylesheet" href="vendor/stylesheet/index.css">
+</head>
+
+<body>
+    <div class="container"></div>
+    <script id="tpl_result" type="text/template">
+        <div class="paper">
+            <div class="info">
+                <ul class="header">
+                    <li>
+                        当前可用额度
+                        <span class="price">¥2000000.00</span>
+                    </li>
+                    <li>
+                        额度状态
+                        <span class="status">已激活</span>
+                    </li>
+                </ul>
+                <p class="p-title">历史借款记录</p>
+                <div class="list">
+                    <dl>
+                        <dt>
+                            <p>
+                                <span>借款日期：2016年03月04日</span>
+                                <span>借款金额：<em class="price">¥200.00</em></span>
+                            </p>
+                            <p>
+                                <span>订单号码：10099871716</span>
+                            </p>
+                        </dt>
+                        <dd>
+                            <span>已放款</span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            <p>
+                                <span>借款日期：2016年03月04日</span>
+                                <span>借款金额：<em class="price">¥200.00</em></span>
+                            </p>
+                            <p>
+                                <span>订单号码：10099871716</span>
+                            </p>
+                        </dt>
+                        <dd>
+                            <span>已放款</span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            <p>
+                                <span>借款日期：2016年03月04日</span>
+                                <span>借款金额：<em class="price">¥200.00</em></span>
+                            </p>
+                            <p>
+                                <span>订单号码：10099871716</span>
+                            </p>
+                        </dt>
+                        <dd>
+                            <span class="none">已还款</span>
+                        </dd>
+                    </dl>
+                </div>
+                <a href="javascript" class="a-close">关闭</a>
+            </div>
+        </div>
+    </script>
+    <script id="tpl_search" type="text/template">
+        <div class="paper">
+            <div class="form">
+                <ul>
+                    <li>
+                        车主姓名
+                        <span><input type="text" id=""></span>
+                    </li>
+                    <li>证件类型
+                        <span class="sp-select">身份证</span>
+                        <select id="" class="sel-type">
+                            <option value="">身份证</option>
+                            <option value="">其他</option>
+                        </select>
+                    </li>
+                    <li>证件号码
+                        <span><input type="text" id="" placeholder="请填写车主身份证号"></span>
+                    </li>
+                    <li>手机号码
+                        <span><input class="input-tel" type="text" id=""></span>
+                        <a href="javascript:;" class="a-code">获取验证码</a>
+                    </li>
+                    <li>验证码
+                        <span><input type="text" id=""></span>
+                    </li>
+                </ul>
+                <a href="javascript" class="a-search">查询</a>
+            </div>
+        </div>
+    </script>
+    <script src="vendor/core/js/sparrow.js"></script>
+    <script src="vendor/script/zepto.min.js"></script>
+    <script>
+    $(function() {
+        // console.log('ready');
+        var wrapper = $('.container');
+
+        Sparrow.navigate();
+
+        Sparrow
+            .add(/search/, function() {
+                console.log('search');
+                var tpl = $('#tpl_search').html();
+                wrapper.empty();
+                wrapper.append(tpl);
+            })
+            .add(/result/, function() {
+                console.log('result');
+                var tpl = $('#tpl_result').html();
+                wrapper.empty();
+                wrapper.append(tpl);
+            }).listen();
+
+        Sparrow.navigate(/search/);
+    });
+    </script>
+</body>
+
+</html>

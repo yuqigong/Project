@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <title>server</title>
+    <!-- Set wap app icon -->
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png" />
+    <!-- Base style -->
+    <link rel="stylesheet" href="../../lib/css/base/base.css" />
+    <link rel="stylesheet" href="style/style.css" />
+</head>
+
+<body>
+    <div class="header"></div>
+    <div class="wrapper">
+        <div id="j_hacktion4_grid">
+            <!-- <div class="grid">
+                <ul>
+                    <li>
+                        <span>A</span>
+                        <span>B</span>
+                        <span>C</span>
+                    </li>
+                    <li>
+                        <span>A</span>
+                        <span>B</span>
+                        <span>C</span>
+                    </li>
+                    <li>
+                        <span>A</span>
+                        <span>B</span>
+                        <span>C</span>
+                    </li>
+                </ul>
+            </div> -->
+        </div>
+    </div>
+    <div class="footer"></div>
+    <script id="tpl_server_grid" type="text/template">
+        <div class="grid">
+            <ul>
+                <% _.each(data, function(obj){ %>
+                    <li>
+                        <span><%=obj.name%></span>
+                    </li>
+                    <% }) %>
+            </ul>
+        </div>
+    </script>
+    <script id="tpl_server_grid_2" type="text/template">
+        <div class="grid">
+            <ul>
+                <% _.each(data, function(obj){ %>
+                    <li>
+                        <% _.each(obj, function(sub){ %>
+                            <span><%=sub.name%></span>
+                            <% }) %>
+                    </li>
+                    <% }) %>
+            </ul>
+        </div>
+    </script>
+    <script src="../../lib/script/base/underscore/underscore.js"></script>
+    <script src="../../lib/script/base/zepto/zepto.js"></script>
+    <script>
+    // {
+    // 	1: [],
+    // 	2: [],
+    // 	3: []
+    // }
+
+    // [[],[],[]]
+    $(function() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://10.38.150.51/Hackthon/api/service/getServiceList',
+            // type of data we are expecting in return:
+            dataType: 'jsonp',
+            jsonpCallback: 'callback',
+            timeout: 300,
+            success: function(data) {
+
+                function fn() {
+                    var list = [];
+
+                    for (var i = 0; i < data.length; i += 3) {
+                        var tmp = [];
+                        for (var j = 0; j < 3; j++) {
+                            var item = data[i + j];
+                            tmp.push(item);
+                        }
+                        list.push(tmp);
+                    }
+
+                    return list;
+                }
+
+                var list = [];
+                var tmp = [];
+                for (var i = 0; i < data.length; i++) {
+                	tmp.push(data[i]);
+                	if (tmp.length === 3) {
+                		list.push(tmp);
+                		tmp = [];
+                	}
+                }
+                list.push(tmp);
+
+                if (data) {
+                    var fdata = fn(data);
+                    var htmlgrid = _.template($('#tpl_server_grid').html())({
+                        data: fdata
+                    });
+
+                    $('#j_hacktion4_grid').html(htmlgrid);
+                }
+            },
+            error: function(xhr, type) {
+                alert('Ajax error!')
+            }
+        })
+
+    });
+    </script>
+</body>
+
+</html>
