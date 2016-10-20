@@ -4,6 +4,7 @@
 var superagent = require('superagent');
 var cheerio = require('cheerio');
 var url = require('url');
+var _ = require('lodash');
 
 exports.get = function (categoryUrl, handler) {
 
@@ -32,6 +33,8 @@ exports.get = function (categoryUrl, handler) {
                 });
 
             });
+
+            console.log(_.uniq(tags, 'href'));
 
             handler(null, tags);
 
