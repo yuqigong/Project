@@ -1,68 +1,40 @@
 var express = require('express');
-var superagent = require('superagent');
 var cheerio = require('cheerio');
-var url = require('url');
 var async = require('async');
 
-var read = require('./read');
+var categoryTags = require('./categoryTags');
+var categoryList = require('./categoryList');
 
 var app = express();
 
-var domainUrl = 'http://www.qiushibaike.com';
+var categoryUrl = 'http://www.qiushibaike.com';
 
 app.get('/', function(req, res) {
 
-    // 列表
-    var categorys = [];
-    
-    async.series([
-        function (done) {
-            superagent.get(domainUrl)
-            .end(function(err, sres){
-                if (err) {
-                    return done(err);
-                }
+    async.waterfall([
+        function (callback) {
 
-                // 中文转码有问题 decodeEntities
-                var $ = cheerio.load(sres.text, {decodeEntities: false});
-
-                $('#menu a').each(function (idx, elem) {
-                    var $elem = $(elem);
-
-                    categorys.push({
-                        href: url.resolve(domainUrl, $elem.attr('href')),
-                        categorys: $elem.text()
-                    });
-
-                });
-
-                done(null , categorys);
+            categoryTags.get(categoryUrl, function (err, tags) {
+                callback(err, tags);
             });
+
         },
-        function (done) {
+        function (categorys, callback) {
 
-            var all = [];
-            var currtUrl = categorys[0].href;
+            if (!categorys || categorys.length < 1) {
+                callback('分类信息为空');
+            }
 
-            read.categoryList(currtUrl, function (err, data) {
-                if (err) {
-                    return done(err);
-                }
-
-                if (data && data.length > 0) {
-                    all = all.concat(data);
-                }
-
-                done(null, all);
-
+            categoryList.get(categorys, function (err, list) {
+                callback(err, list);
             });
 
         }
-    ],function (err, results) {
+    ], function (err, result) {
         if( err ) {
-            console.log('A file failed to process');
+            console.log('App to failed');
         } else {
-            res.send(results);
+            res.send(result);
             console.log('All files have been processed successfully');
         }
     });
