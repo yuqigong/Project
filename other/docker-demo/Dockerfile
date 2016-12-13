@@ -12,13 +12,14 @@ MAINTAINER Richie <yuqi.gong.home@gmail.com>
 # Install build-essential libssl-dev Nginx git curl.
 RUN \
   apt-get update && \
-  apt-get install -y build-essential libssl-dev
   apt-get install -y nginx && \
   apt-get install -y git && \
   apt-get install -y curl
 
 # Install nvm and Node.
 RUN \
+  apt-get update && \
+  apt-get install -y build-essential libssl-dev && \
   curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash && \
   source ~/.profile
 
